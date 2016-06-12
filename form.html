@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>form</title>
+    <link rel="stylesheet" href="css/weui.min.css"/>
+    <style>
+        body {
+            font-family: Helvetica, STHeiti STXihei, Microsoft JhengHei, Microsoft YaHei, Arial;
+            color: #333;
+            min-width: 320px;
+            max-width: 640px;
+            overflow-x: hidden;
+            margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        header {
+            color: white;
+            padding: 10px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+        header a {
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        header a:after {
+            position: absolute;
+            top: 6px;
+            left: 7px;
+            content: "";
+            display: inline-block;
+            transform: rotate(-135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #0263B5;
+            border-style: solid;
+        }
+        h1{
+            font-size: 100%;
+            font-weight: 500;
+        }
+        .race-header {
+            text-align: center;
+            color: #fff;
+            background-color: #f2f2f2;
+        }
+
+        .race-mask {
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .race-mask img {
+            width: 100%;
+            height: 100%
+        }
+        .weui_select{
+            height: 40px;
+        }
+
+        .race-detail-header {
+            position: relative;
+            background-color: #e6e6e6;
+            text-align: left
+        }
+        .race-detail-title {
+            background-color: #fff;
+            padding: 5px 8px;
+        }
+        .race-detail-title h2 {
+            display: inline-block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .race-detail-header .btn {
+            position: absolute;
+            right: 8px;
+            color: #fff;
+            font-size: 16px;
+            height: 21px;
+            line-height: 21px;
+            border-radius: 2px;
+            top: 5px;
+            display: inline-block;
+            text-align: center;
+            width: 70px;
+            border: 1px solid transparent;
+            background-color: #3dbdff;
+        }
+        .race-detail-ps {
+            color: #999;
+            font-size: 12px;
+        }
+        .race-datetime {
+            padding-right:5px;
+        }
+        .ws-ico {
+            background: url('images/newIcon.png') no-repeat;
+            background-size: 100px 150px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .ico-location {
+            position: relative;
+            top: -1px;
+            height: 12px;
+            width: 12px;
+            background-position: 0 -14px;
+        }
+        .ico-time{
+            position: relative;
+            height: 12px;
+            width: 12px;
+            background-position: 0 0;
+            top: -1px;
+        }
+        .race-detail-ps .ws-ico {
+            margin-right: 4px;
+        }
+        .race-detail-ps .ws-ico {
+            margin-right: 4px;
+        }
+        .weui_label {
+            width: auto;
+        }
+
+        .weui_cell {
+            font-size: 14px;
+        }
+        .weui_check_label{
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 14px;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+        }
+        .weui_cells_title {
+            background-color: #e6e6e6;
+            margin: 0;
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .weui_cells_radio .weui_check:checked + .weui_icon_checked:before {
+            content: '\EA06';
+            font-size: 23px;
+            color: #09BB07;
+
+        }
+
+        .weui_cells_radio .weui_icon_checked:before {
+            content: '\EA01';
+            color: #C9C9C9;
+            font-size: 23px;
+            display: block;
+        }
+
+        .weui_input {
+            text-align: center
+        }
+
+        .myFt {
+            position: relative;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+
+        .myFt i {
+            content: " ";
+            display: inline-block;
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #C8C8CD;
+            border-style: solid;
+            position: relative;
+            top: -3px;
+            margin-left: .3em;
+        }
+
+        .myFt:before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 1px;
+            border-top: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            left: 15px;
+        }
+
+        .content {
+            position: relative;
+            padding: 10px 15px;
+            height: auto;
+            font-size: 14px;
+
+        }
+
+        button.weui_btn, input.weui_btn {
+            width: 80%;
+        }
+
+        .content:before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 1px;
+            border-top: 1px solid #d9d9d9;
+            color: #d9d9d9;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            left: 15px;
+        }
+
+        .spacing {
+            padding: 10px 0 0 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="index.html"></a>
+    <h1 class="header">系统消息</h1>
+</header>
+<div class="form-wraper">
+    <div class="race-header">
+        <div class="race-mask"><img src="images/demo-race.jpg" alt=""/></div>
+        <div class="race-detail-header">
+            <div class="race-detail-title">
+                <h2>台北渣打公益马拉松</h2>
+                <button class="btn btn-join">报名中</button>
+                <div class="race-detail-ps"><span class="race-datetime"><i
+                        class="ws-ico ico-time"></i>2016年2月24</span><span
+                        class="race-location"><i class="ws-ico ico-location"></i>台北渣打</span></div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="form-wraper">
+            <div class="weui_cell weui_cell_select weui_select_after">
+                <div class="weui_cell_hd">报名组别</div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <select name="select0" class="weui_select">
+                        <option value="1">42公里全码</option>
+                        <option value="2">半码</option>
+                        <option value="3">迷你</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui_cells_title">填写个人信息</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_uploader">
+                            <div class="weui_uploader_hd weui_cell">
+                                <div class="weui_cell_bd weui_cell_primary">请上传半年内全马完赛证明</div>
+                                <div class="weui_cell_ft">0/0</div>
+                            </div>
+                            <div class="weui_uploader_bd">
+                                <ul class="weui_uploader_files">
+                                </ul>
+                                <div class="weui_uploader_input_wrp">
+                                    <input type="file" class="weui_uploader_input" onchange="processFiles1(this.files)" id="upLoader1"
+                                           accept="image/jpg,image/ipeg,image/png,image/gif" multiple="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="需与有效证件一致"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cells_radio">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">性别</label></div>
+                    <div class="weui_cell_primary">
+                        <label class="weui_check_label" for="x11">
+                            <div class="weui_cell_hd">
+                                <input type="radio" class="weui_check" name="sex" id="x11">
+                                <i class="weui_icon_checked"></i>
+                            </div>
+                            <div class="weui_cell_bd">
+                                <p>男</p>
+                            </div>
+
+                        </label></div>
+                    <div class="weui_cell_primary">
+                        <label class="weui_check_label" for="x12">
+                            <div class="weui_cell_hd">
+                                <input type="radio" class="weui_check" name="sex" id="x12">
+                                <i class="weui_icon_checked"></i>
+                            </div>
+                            <div class="weui_cell_bd">
+                                <p>女</p>
+                            </div>
+                        </label></div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for class="weui_label">出生日期</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="date" class="weui_input" value>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">身份证件类型</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select name="select1" class="weui_select">
+                            <option value="1">身份证</option>
+                            <option value="2">暂住证</option>
+                            <option value="3">港澳台通行证</option>
+                            <option value="4">签证</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">证件号码</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="请输入证件号码"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">国家/地区</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select name="select2" class="weui_select">
+                            <option value="1">中国</option>
+                            <option value="2">美国</option>
+                            <option value="3">英国</option>
+                            <option value="4">法国</option>
+                            <option value="5">日本</option>
+                            <option value="6">韩国</option>
+                            <option value="7">新加坡</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">城市</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="请输入现居住城市"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_warn">
+                    <div class="weui_cell_hd"><label for class="weui_label">手机</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" pattern="[0-9]"/>
+                    </div>
+                    <div class="weui_cell_ft">
+                        <i class="weui_icon_warn"></i>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">邮寄地址</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="请输入详细邮寄地址"/>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">邮编</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="number" class="weui_input" pattern="[0-9]" placeholder="请输入邮编号"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">线上联系方式</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select name="select3" class="weui_select">
+                            <option value="1">微信号</option>
+                            <option value="2">QQ</option>
+                            <option value="3">陌陌</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">号码</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="请输入线上联系方式" pattern="^[1-9]\\d{4,10}$"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">选择服装尺码</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select name="select4" class="weui_select">
+                            <option value="1">M</option>
+                            <option value="2">S</option>
+                            <option value="3">L</option>
+                            <option value="4">XL</option>
+                            <option value="5">XXL</option>
+                            <option value="6">XXXL</option>
+                            X
+                            <option value="7">XS</option>
+                            <option value="7">XXS</option>
+                            <option selected value="8"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_uploader">
+                            <div class="weui_uploader_hd weui_cell">
+                                <div class="weui_cell_bd weui_cell_primary">请上传半年内全马完赛证明</div>
+                                <div class="weui_cell_ft">0/0</div>
+                            </div>
+                            <div class="weui_uploader_bd">
+                                <ul class="weui_uploader_files">
+                                </ul>
+                                <div class="weui_uploader_input_wrp">
+                                    <input type="file" onchange="processFiles2(this.files)" class="weui_uploader_input" id="upLoader2"
+                                           accept="image/jpg,image/ipeg,image/png,image/gif" multiple/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">选择血型</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select name="select5" class="weui_select">
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                            <option value="3">AB</option>
+                            <option value="4">O</option>
+                            <option selected value="8"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">紧急联系人姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="text" class="weui_input" placeholder="请输入姓名"/>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">紧急联系人手机</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input type="number" class="weui_input" placeholder="请输入手机号"/>
+                    </div>
+                </div>
+                <div class="weui_cells_title"></div>
+                <div class="weui_cells weui_cells_checkbox">
+                    <label class="weui_cell" for="s11">
+                        <div class="weui_cell_hd">
+                            <input type="checkbox" class="weui_check" name="checkbox1" id="s11">
+                            <i class="weui_icon_checked"></i>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>我已详细查看挖赛体育报名细则</p>
+                        </div>
+                        <div class="weui_cell_ft weui_cell_warn">
+                            <i class="weui_icon_warn"></i>
+                        </div>
+                    </label>
+
+                    <div class="content">
+                        的方式改革若干位fndldglsnglsknfamf上来看到过两块五路口
+                    </div>
+                    <div class="myFt">
+                        <i></i> 展开细则
+                    </div>
+                </div>
+
+            </div>
+            <div class="bd spacing">
+                <input class=weui_btn type="button" name="btn" value="提交">
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        function processFiles1(files) {
+            var upLoad = document.getElementsByClassName('weui_uploader_files')[0];
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var Li = document.createElement('li');
+                Li.className = 'weui_uploader_file';
+                Li.style.backgroundImage = 'url("' + e.target.result + '")';
+                upLoad.appendChild(Li)
+
+            };
+            reader.readAsDataURL(file)
+
+        }
+        function processFiles2(files) {
+            var upLoad = document.getElementsByClassName('weui_uploader_files')[1];
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var Li = document.createElement('li');
+                Li.className = 'weui_uploader_file';
+                Li.style.backgroundImage = 'url("' + e.target.result + '")';
+                upLoad.appendChild(Li)
+
+            };
+            reader.readAsDataURL(file)
+
+        }
+        //http://wxb.github.io/dropzonejs.com.zh-CN/dropzonezh-CN/
+        //http://blog.bingo929.com/renren-drag-drop-photo-filereader-formdata.html
+    </script>
+</div>
+</body>
+</html>

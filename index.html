@@ -1,0 +1,720 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>挖赛-首页</title>
+    <!--[if lt IE 10]>
+    <script type="text/javascript">
+        alert("您的浏览器版本太低了，本站对IE10以下版本浏览器无法提供支持，为保证更好的浏览体验，请升级您的IE或下载其它浏览器。推荐Chrome, Firefox!");
+        window.close();
+    </script>
+    <![endif]-->
+    <link href="css/jquery.datepick.css" type="text/css" rel="stylesheet"/>
+    <link href="css/wasai.css" type="text/css" rel="stylesheet"/>
+    <style>
+        .datepick {
+            font-size: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="ws-wraper">
+    <header class="race-banner">
+        <div class="logo">
+            <span class="logo_ico"></span>
+            挖赛体育
+            <ul>
+                <li class="logo_ico"></li>
+                <li class="logo_ico"></li>
+                <li class="logo_ico"></li>
+            </ul>
+        </div>
+        <div class="race-banner-box">
+        </div>
+        <nav class="race-fiter">
+            <ul class="race-fiter-list">
+                <li data-render='status-list'>状态<i class="ws-ico ico-arrow"></i></li>
+                <li data-render='zone-list'>地区<i class="ws-ico ico-arrow"></i></li>
+                <li data-render='type-list'>类型<i class="ws-ico ico-arrow"></i></li>
+                <li data-render='calendar-list'><i class="ws-ico ico-calendar"></i><span>超级马历</span></li>
+            </ul>
+            <!-- 排序 -->
+            <!-- 状态 -->
+            <div class="filter-detail-list status-list hide">
+                <ul>
+                    <li estate="-1">未启动</li>
+                    <li estate="1">预报名</li>
+                    <li estate="2">报名中</li>
+                    <li estate="3">报名结束</li>
+                    <li estate="4">以报满</li>
+                    <li estate="5">比赛中</li>
+                    <li estate="6">已结束</li>
+                </ul>
+            </div>
+            <!-- 地区 -->
+            <div class="filter-detail-list zone-list hide">
+                <div class="zone-l">
+                    <ul>
+                        <li class="selected">北京</li>
+                        <li>深圳</li>
+                        <li>上海</li>
+                        <li>重庆</li>
+                        <li>天津</li>
+                        <li>广东</li>
+                        <li>河北</li>
+                        <li>山西</li>
+                        <li>内蒙古</li>
+                        <li>辽宁</li>
+                        <li>吉林</li>
+                        <li>黑龙江</li>
+                        <li>江苏</li>
+                        <li>浙江</li>
+                        <li>安徽</li>
+                        <li>福建</li>
+                        <li>江西</li>
+                        <li>山东</li>
+                        <li>河南</li>
+                        <li>湖北</li>
+                        <li>湖南</li>
+                        <li>广西</li>
+                        <li>海南</li>
+                        <li>四川</li>
+                        <li>贵州</li>
+                        <li>云南</li>
+                        <li>西藏</li>
+                        <li>陕西</li>
+                        <li>甘肃</li>
+                        <li>青海</li>
+                        <li>宁夏</li>
+                        <li>新疆</li>
+                        <li>香港</li>
+                        <li>澳门</li>
+                        <li>台湾</li>
+                    </ul>
+                </div>
+                <div class="zone-r">
+                    <ul class="selected">
+                        <li>全部</li>
+                        <li>东城区</li>
+                        <li>西城区</li>
+                        <li>崇文区</li>
+                        <li>宣武区</li>
+                        <li>朝阳区</li>
+                        <li>海淀区</li>
+                        <li>丰台区</li>
+                        <li>石景山</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>罗湖</li>
+                        <li>福田</li>
+                        <li>南山</li>
+                        <li>盐田</li>
+                        <li>宝安</li>
+                        <li>龙岗</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>宝山</li>
+                        <li>金山</li>
+                        <li>南宁</li>
+                        <li>长宁</li>
+                        <li>静安</li>
+                        <li>青浦</li>
+                        <li>崇明</li>
+                        <li>卢湾</li>
+                        <li>松江</li>
+                        <li>奉贤</li>
+                        <li>浦东</li>
+                        <li>杨浦</li>
+                        <li>虹口</li>
+                        <li>普陀</li>
+                        <li>闸北</li>
+                        <li>黄埔</li>
+                        <li>闵行</li>
+                        <li>徐汇</li>
+                        <li>嘉定</li>
+                        <li>南汇</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>渝中</li>
+                        <li>江北</li>
+                        <li>沙坪坝</li>
+                        <li>南岸</li>
+                        <li>九龙坡</li>
+                        <li>大渡口</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>和平</li>
+                        <li>河北</li>
+                        <li>河西</li>
+                        <li>河东</li>
+                        <li>南开</li>
+                        <li>红桥</li>
+                        <li>塘沽</li>
+                        <li>汉沽</li>
+                        <li>大港</li>
+                        <li>东丽</li>
+                        <li>西青</li>
+                        <li>津南</li>
+                        <li>北辰</li>
+                        <li>武清</li>
+                        <li>滨海</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>广州</li>
+                        <li>珠海</li>
+                        <li>中山</li>
+                        <li>佛山</li>
+                        <li>东莞</li>
+                        <li>清远</li>
+                        <li>肇庆</li>
+                        <li>阳江</li>
+                        <li>湛江</li>
+                        <li>韶关</li>
+                        <li>惠州</li>
+                        <li>河源</li>
+                        <li>汕尾</li>
+                        <li>汕头</li>
+                        <li>梅州</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>石家庄</li>
+                        <li>唐山</li>
+                        <li>秦皇岛</li>
+                        <li>邯郸</li>
+                        <li>邢台</li>
+                        <li>张家口</li>
+                        <li>承德</li>
+                        <li>廊坊</li>
+                        <li>沧州</li>
+                        <li>保定</li>
+                        <li>衡水</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>太原</li>
+                        <li>大同</li>
+                        <li>阳泉</li>
+                        <li>朔州</li>
+                        <li>长治</li>
+                        <li>临汾</li>
+                        <li>晋城</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>呼和浩特</li>
+                        <li>包头</li>
+                        <li>乌海</li>
+                        <li>临河</li>
+                        <li>东胜</li>
+                        <li>集宁</li>
+                        <li>锡林浩特</li>
+                        <li>通辽</li>
+                        <li>赤峰</li>
+                        <li>海拉尔</li>
+                        <li>乌兰浩特</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>沈阳</li>
+                        <li>大连</li>
+                        <li>鞍山</li>
+                        <li>锦州</li>
+                        <li>丹东</li>
+                        <li>盘锦</li>
+                        <li>铁岭</li>
+                        <li>抚顺</li>
+                        <li>营口</li>
+                        <li>辽阳</li>
+                        <li>阜新</li>
+                        <li>本溪</li>
+                        <li>朝阳</li>
+                        <li>葫芦岛</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>长春</li>
+                        <li>吉林</li>
+                        <li>四平</li>
+                        <li>辽源</li>
+                        <li>通化</li>
+                        <li>白山</li>
+                        <li>松原</li>
+                        <li>白城</li>
+                        <li>延边</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>哈尔滨</li>
+                        <li>齐齐哈尔</li>
+                        <li>牡丹江</li>
+                        <li>佳木斯</li>
+                        <li>大庆</li>
+                        <li>伊春</li>
+                        <li>黑河</li>
+                        <li>鸡西</li>
+                        <li>鹤岗</li>
+                        <li>双鸭山</li>
+                        <li>七台河</li>
+                        <li>绥化</li>
+                        <li>大兴安岭</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>南京</li>
+                        <li>苏州</li>
+                        <li>无锡</li>
+                        <li>常州</li>
+                        <li>镇江</li>
+                        <li>连云港</li>
+                        <li>扬州</li>
+                        <li>徐州</li>
+                        <li>南通</li>
+                        <li>盐城</li>
+                        <li>淮阴</li>
+                        <li>台州</li>
+                        <li>宿迁</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>杭州</li>
+                        <li>湖州</li>
+                        <li>丽水</li>
+                        <li>温州</li>
+                        <li>绍兴</li>
+                        <li>舟山</li>
+                        <li>嘉兴</li>
+                        <li>金华</li>
+                        <li>台州</li>
+                        <li>衢州</li>
+                        <li>宁波</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>合肥</li>
+                        <li>芜湖</li>
+                        <li>蚌埠</li>
+                        <li>滁州</li>
+                        <li>安庆</li>
+                        <li>六安</li>
+                        <li>黄山</li>
+                        <li>宣城</li>
+                        <li>淮南</li>
+                        <li>苏州</li>
+                        <li>马鞍山</li>
+                        <li>铜陵</li>
+                        <li>淮北</li>
+                        <li>阜阳</li>
+                        <li>池州</li>
+                        <li>巢湖</li>
+                        <li>亳州</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>福州</li>
+                        <li>厦门</li>
+                        <li>泉州</li>
+                        <li>漳州</li>
+                        <li>龙岩</li>
+                        <li>南平</li>
+                        <li>宁德</li>
+                        <li>莆田</li>
+                        <li>三明</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>南昌</li>
+                        <li>景德镇</li>
+                        <li>九江</li>
+                        <li>萍乡</li>
+                        <li>新余</li>
+                        <li>鹰潭</li>
+                        <li>赣州</li>
+                        <li>宜春</li>
+                        <li>吉安</li>
+                        <li>上饶</li>
+                        <li>抚州</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>济南</li>
+                        <li>青岛</li>
+                        <li>淄博</li>
+                        <li>德州</li>
+                        <li>烟台</li>
+                        <li>潍坊</li>
+                        <li>济宁</li>
+                        <li>泰安</li>
+                        <li>临沂</li>
+                        <li>菏泽</li>
+                        <li>威海</li>
+                        <li>枣庄</li>
+                        <li>日照</li>
+                        <li>莱芜</li>
+                        <li>聊城</li>
+                        <li>滨州</li>
+                        <li>东营</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>郑州</li>
+                        <li>开封</li>
+                        <li>洛阳</li>
+                        <li>平顶山</li>
+                        <li>安阳</li>
+                        <li>鹤壁</li>
+                        <li>新乡</li>
+                        <li>焦作</li>
+                        <li>濮阳</li>
+                        <li>许昌</li>
+                        <li>漯河</li>
+                        <li>三门峡</li>
+                        <li>南阳</li>
+                        <li>商丘</li>
+                        <li>周口</li>
+                        <li>驻马店</li>
+                        <li>信阳</li>
+                        <li>济源</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>武汉</li>
+                        <li>黄石</li>
+                        <li>十堰</li>
+                        <li>荆州</li>
+                        <li>宜昌</li>
+                        <li>襄樊</li>
+                        <li>鄂州</li>
+                        <li>荆门</li>
+                        <li>孝感</li>
+                        <li>黄冈</li>
+                        <li>咸宁</li>
+                        <li>恩施</li>
+                        <li>随州</li>
+                        <li>仙桃</li>
+                        <li>天门</li>
+                        <li>潜江</li>
+                        <li>神农架</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>长沙</li>
+                        <li>株州</li>
+                        <li>湘潭</li>
+                        <li>衡阳</li>
+                        <li>邵阳</li>
+                        <li>岳阳</li>
+                        <li>常德</li>
+                        <li>郴州</li>
+                        <li>益阳</li>
+                        <li>永州</li>
+                        <li>怀化</li>
+                        <li>娄底</li>
+                        <li>湘西</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>南宁</li>
+                        <li>柳州</li>
+                        <li>桂林</li>
+                        <li>梧州</li>
+                        <li>北海</li>
+                        <li>防城港</li>
+                        <li>钦州</li>
+                        <li>贵港</li>
+                        <li>玉林</li>
+                        <li>贺州</li>
+                        <li>百色</li>
+                        <li>河池</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>海口</li>
+                        <li>三亚</li>
+                        <li>通什</li>
+                        <li>琼海</li>
+                        <li>琼山</li>
+                        <li>文昌</li>
+                        <li>万宁</li>
+                        <li>东方</li>
+                        <li>儋州</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>成都</li>
+                        <li>自贡</li>
+                        <li>攀枝花</li>
+                        <li>泸州</li>
+                        <li>德阳</li>
+                        <li>绵阳</li>
+                        <li>广元</li>
+                        <li>遂宁</li>
+                        <li>内江</li>
+                        <li>乐山</li>
+                        <li>南充</li>
+                        <li>宜宾</li>
+                        <li>广安</li>
+                        <li>达川</li>
+                        <li>巴中</li>
+                        <li>雅安</li>
+                        <li>眉山</li>
+                        <li>阿坝</li>
+                        <li>甘孜</li>
+                        <li>凉山</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>贵阳</li>
+                        <li>六盘水</li>
+                        <li>遵义</li>
+                        <li>铜仁</li>
+                        <li>毕节</li>
+                        <li>安顺</li>
+                        <li>黔西南</li>
+                        <li>黔东南</li>
+                        <li>黔南</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>昆明</li>
+                        <li>东川</li>
+                        <li>曲靖</li>
+                        <li>玉溪</li>
+                        <li>昭通</li>
+                        <li>思茅</li>
+                        <li>临沧</li>
+                        <li>保山</li>
+                        <li>丽江</li>
+                        <li>文山</li>
+                        <li>红河</li>
+                        <li>西双版纳</li>
+                        <li>楚雄</li>
+                        <li>大理</li>
+                        <li>德宏</li>
+                        <li>怒江</li>
+                        <li>迪庆</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>拉萨</li>
+                        <li>那曲</li>
+                        <li>昌都</li>
+                        <li>山南</li>
+                        <li>日喀则</li>
+                        <li>阿里</li>
+                        <li>林芝</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>西安</li>
+                        <li>铜川</li>
+                        <li>宝鸡</li>
+                        <li>咸阳</li>
+                        <li>渭南</li>
+                        <li>延安</li>
+                        <li>汉中</li>
+                        <li>榆林</li>
+                        <li>商洛</li>
+                        <li>安康</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>兰州</li>
+                        <li>金昌</li>
+                        <li>白银</li>
+                        <li>天水</li>
+                        <li>嘉峪关</li>
+                        <li>定西</li>
+                        <li>平凉</li>
+                        <li>庆阳</li>
+                        <li>陇南</li>
+                        <li>武威</li>
+                        <li>张掖</li>
+                        <li>酒泉</li>
+                        <li>甘南</li>
+                        <li>临夏</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>西宁</li>
+                        <li>海东</li>
+                        <li>海北</li>
+                        <li>黄南</li>
+                        <li>海南</li>
+                        <li>果洛</li>
+                        <li>玉树</li>
+                        <li>海西</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>银川</li>
+                        <li>石嘴山</li>
+                        <li>银南</li>
+                        <li>固原</li>
+                    </ul>
+                    <ul>
+                        <li>全部</li>
+                        <li>乌鲁木齐</li>
+                        <li>克拉玛依</li>
+                        <li>石河子</li>
+                        <li>吐鲁番</li><li>哈密</li>
+                        <li>和田</li>
+                        <li>阿克苏</li>
+                        <li>喀什</li>
+                        <li>克孜勒苏</li>
+                        <li>巴音郭楞</li>
+                        <li>昌吉</li>
+                        <li>博尔塔拉</li>
+                        <li>伊犁</li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- 类型 -->
+            <div class="filter-detail-list type-list hide">
+            </div>
+            <!-- 日历 -->
+            <div class="filter-detail-list calendar-list hide">
+                <div class="" id="calendar"></div>
+                <div class="calendar-footer">
+                    <a class="btn btn-ok" href="javascript:">确定</a>
+                    <a class="clearDate" href="javascript:">清除</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="race-statistics">共<span class="num"></span>场比赛<span class="btn-clear fr" style="display: none"><span class="ws-ico ico-location1"></span>清除条件项</span></div>
+    <section class="race-section">
+        <ul></ul>
+        <div class="no-match">没有更多赛事</div>
+        <div class="loading">正在加载</div>
+    </section>
+    <div class="bg"></div>
+</div>
+<style type="text/css">
+    #navWraper {
+        width: 100%;
+        max-width: 640px;
+        overflow: hidden;
+    }
+    #nav {
+        width: 100%;
+        max-width: 640px;
+        border-top: 1px solid #DEDEDE;
+        border-bottom: 1px solid #F8F8F8;
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        justify-content: space-between;
+        align-content: center;
+        background-color: #FFF;
+    }
+    #nav a {
+        margin: 4px 0;
+        font-size: 20px;
+        color: #999;
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center;
+        box-sizing: border-box;
+        display: block;
+    }
+    #nav span {
+        font-size: 30px;
+        background-color: #FFF;
+        display: block;
+        margin-bottom: 2px;
+    }
+    #nav p {
+        font-size: 14px;
+        line-height: 1;
+        padding-top: 3px;
+        color: #333;
+        margin: -3px 0 5px;
+    }
+    @media screen and (max-width: 640px){
+        #nav span {
+            font-size: 22px;
+            height: 22px;
+            background-color: #FFF;
+            margin-bottom: 4px;
+        }
+        #nav p {
+            display: block;
+            font-size: 10px;
+            color: #666;
+            line-height: 0.7;
+        }
+    }
+    .icon-bottom i{
+        width: 22px;
+        height: 22px;
+        background: url('images/tubiao2.png') no-repeat;
+        background-size: 50px 96.5px;
+        display: inline-block;
+    }
+    .icon-bottom .icon-race{
+        background-position: 2px 0;
+
+    }
+    .icon-bottom .icon-rent{
+        background-position: -28px -27px;
+    }
+    .icon-bottom .icon-news{
+        background-position: -29px -53px;
+    }
+    .icon-bottom .icon-me{
+        background-position: -28px -78px;
+    }
+    #racePage p {
+        color: #1875d4;
+    }
+</style>
+<div id="navWraper">
+    <div id="nav">
+        <a id="racePage" href="">
+            <span class="icon-bottom"><i class="icon-race"></i></span>
+            <p>赛事</p>
+        </a>
+        <a id="rentPage" href="Flatshare">
+            <span class="icon-bottom"><i class="icon-rent"></i></span>
+            <p>拼马</p>
+        </a>
+        <a id="newsPage" href="news">
+            <span class="icon-bottom"><i class="icon-news"></i></span>
+            <p>消息</p>
+        </a>
+        <a id="runnerPage" href="my">
+            <span class="icon-bottom"><i class="icon-me"></i></span>
+            <p>我的</p>
+        </a>
+    </div>
+</div>
+<script src="js/TouchSlide.1.1.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.plugin.min.js"></script>
+<script src="js/jquery.datepick.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
