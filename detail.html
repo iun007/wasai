@@ -1,0 +1,478 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>挖赛-赛事详情</title>
+    <link href="css/wasai.css" type="text/css" rel="stylesheet"/>
+    <style>
+        header {
+            color: white;
+            padding: 10px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+        header a {
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        header a:after {
+            position: absolute;
+            top: 6px;
+            left: 7px;
+            content: "";
+            display: inline-block;
+            transform: rotate(-135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #0263B5;
+            border-style: solid;
+        }
+        .race-header {
+            color: #fff;
+            background-color: #f2f2f2;
+        }
+        .race-mask {
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .race-mask img {
+            width: 100%;
+            height: 100%;
+        }
+        .race-detail-header {
+            position: relative;
+            background-color: #e6e6e6;
+            text-align: left;
+        }
+        section:after {
+            content: "";
+            display: block;
+            height: 1px;
+            background: #d9d9d9;
+        }
+
+        section > div {
+            padding: 0 10px;
+        }
+
+        section > div ul::after {
+            content: "";
+            display: block;
+            height: 1px;
+            background: #d9d9d9;
+        }
+
+        section div ul li {
+            position: relative;
+            padding: 10px 0;
+            font-size: 12px;
+        }
+
+        section div ul li:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: #d9d9d9;
+        }
+
+        .deploy {
+            position: relative;
+            line-height: 40px;
+            height: 40px;
+            font-size: 16px;
+            text-align: center;
+
+        }
+
+        .deploy i{
+            display: inline-block;
+            transform: rotate(135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: black;
+            border-style: solid;
+            position: absolute;
+            top: 40%;
+            left: 10px;
+        }
+
+        h3 {
+            padding-left: 10px;
+            font-weight: bold;
+            line-height: 40px;
+        }
+
+        .portrait {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border: 1px solid dodgerblue;
+            border-radius: 50% 50%;
+            background: dodgerblue;
+        }
+
+        .hostList div,.List div {
+            padding: 12px 0 12px 50px;
+            font-size: 10px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .name {
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 19px;
+        }
+
+        .time {
+            font-size: 14px;
+        }
+
+        .pm-icon2 {
+            background: url('images/pingma-icon2.png') no-repeat;
+            background-size: 13px 58px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .pm-icon2-2 {
+            margin-left: 5px;
+            position: relative;
+            top: -2px;
+            height: 13px;
+            width: 13px;
+            background-position: 0 0;
+        }
+
+        .loadingMore {
+            position: relative;
+            margin: 10px auto;
+            width: 50%;
+            font-size: 14px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #d7d7d7;
+            border-radius: 5px;
+            text-align: center;
+            background: #f2f2f2;
+        }
+
+        .loadingMore:after {
+            content: " ";
+            display: inline-block;
+            transform: rotate(135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: black;
+            border-style: solid;
+            position: absolute;
+            top: 40%;
+            right: 10px;
+            margin-top: -3px;
+        }
+
+        .btn2 {
+            margin-bottom: 60px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            background-color: rgba(241, 245, 248, 1);
+        }
+
+        .footer span:first-child {
+            margin: auto 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50% 50%;
+            background: white;
+        }
+
+        .footer input {
+            margin: auto;
+            height: 30px;
+            border: 1px solid #d9d9d9;
+        }
+
+        .footer span:last-child {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .lasticon {
+            position: relative;
+            top: -2px;
+            height: 15px;
+            width: 15px;
+            background-position: 0 -28px;
+        }
+        hr{
+            margin-top:10px;
+            border-top: 1px solid #d9d9d9;
+            border-left: 0;
+            border-bottom: 0;
+            border-right: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="index.html"></a>
+
+    <h1 class="header">系统消息</h1>
+</header>
+<div class="ws-wraper">
+    <div class="race-header">
+        <div class="race-mask"><img src="images/demo-race.jpg" alt=""/></div>
+        <div class="race-detail-header">
+            <div class="race-detail-title">
+                <h2>台北渣打公益马拉松</h2>
+                <button class="btn btn-join">报名中</button>
+                <div class="race-detail-ps"><span class="race-datetime"><i class="ws-ico ico-time"></i>2016年2月24</span><span class="race-location"><i class="ws-ico ico-location"></i>台北渣打</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="forColor"></div>
+    <main>
+        <article class="recommendation">
+            <h2>参赛推荐:</h2>
+
+            <div class="icon"></div>
+            <p>这个赛事就好，这个赛事就6，这个赛事就好，这个赛事就6，这个赛事就好，这个赛事就6，这个赛事就好，这个赛事就6，这个赛事就好，这个赛事就6</p>
+        </article>
+        <article class="race-article">
+            <h2 class="atc-title">报名组别</h2>
+            <ul class="atc-group">
+
+            </ul>
+            <h2 class="atc-title">赛事简介</h2>
+
+            <div class="atc-intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum
+                laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
+                tempor.
+            </div>
+            <div class="atc-pic"><img src="images/demo-pic.jpg" alt=""></div>
+            <div class="atc-info">
+                <h3 class="atc-subtitle">赛事信息</h3>
+
+                <div class="atc-subcontent">
+                    <p><span class="remind">报名条件：</span><br>年满18周岁，60周岁以下，身体健康。有一定经验的跑者或徒步者，为参赛进行了充足的训练准备。请根据自身身体条件决定能否参赛。需提供两年内参加长距离耐力赛可查成绩（全程马拉松、越野赛、户外赛、登山滑雪赛等）
+                    </p>
+
+                    <p><span class="remind">报名时间：</span><br>2016年2月26日至2016年5月25日</p>
+
+                    <p><span class="remind">报名费用：</span><br>（1）50公里项目：380元 限额300人<br>（2）30公里项目：280元 限额400人</p>
+                </div>
+                <div class="hiddenArea">
+                    <h3 class="atc-subtitle">比赛路线</h3>
+
+                    <div class="atc-subcontent"><img src="images/demo-map.jpg" alt="" width="100%"></div>
+                    <h3 class="atc-subtitle">奖品设置</h3>
+
+                    <div class="atc-subcontent">
+                        <p>在精英时间内完赛的选手将会获得象征巴图鲁的扳指、完赛奖牌、完赛服。<br>完赛选手将会获得完赛奖牌和完赛服。</p>
+                    </div>
+                    <h3 class="atc-subtitle">比赛规则</h3>
+
+                    <div class="atc-subcontent">
+                        <p class="remind">有以下疾病患者不宜参加比赛：</p>
+                        <ul>
+                            <li>1、先天性心脏病和风湿性心脏病患者；</li>
+                            <li>2、高血压和脑血管疾病患者；</li>
+                            <li>3、心肌炎和其他心脏病患者；</li>
+                            <li>4、冠状动脉病患者和严重心律不齐者；</li>
+                            <li>5、血糖过高或过低的糖尿病患者；</li>
+                            <li>6、其它不适合运动的疾病患者；</li>
+                            <li>7、比赛日前两周以内患过感冒；</li>
+                            <li>8、孕妇。</li>
+                        </ul>
+                        <p class="remind">特别提醒：</p>
+
+                        <p>参赛包一经领取，将被视为知晓并同意以上内容。在比赛中，因个人身体及其他个人原因导致的人身损害和财产损失，由参赛者本人承担责任。</p>
+                    </div>
+                    <h3 class="atc-subtitle">赛事强制装备要求</h3>
+
+                    <div class="atc-subcontent">
+                        <p>为保证参赛运动员的安全，赛会提出强制装备要求：<br>50公里组强制装备：<br>随身携带水袋包、头灯、手机、哨子<br>比赛过程中赛会将设点严格检查强制装备，任缺一项，取消比赛资格。
+                        </p>
+                    </div>
+                </div>
+                <hr/>
+                <div class="deploy">
+                    <i></i>
+                    展开全部
+                </div>
+            </div>
+            <div class="onekey-box">
+                <button class="btn btn-onekey">一键报名</button>
+            </div>
+        </article>
+    </main>
+    <section class="HotReview"><h3>热门评论</h3>
+        <div>
+            <ul class="hostList"></ul>
+        </div>
+        <div class="loadingMore">查看更多热门评论</div>
+    </section>
+    <section class="AllReview"><h3>全部评论</h3>
+
+        <div>
+            <ul class="List">
+            </ul>
+        </div>
+        <div class="loadingMore btn2">查看更多评论</div>
+    </section>
+    <div class="footer">
+        <span></span>
+        <input type="text" placeholder="我也说几句">
+        <span><i class="pm-icon2 lasticon"></i>评论99</span>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //赛事详情里的细节展开项
+            var $deploy=$('.deploy');
+            var $hiddenArea=$('.hiddenArea');
+            $hiddenArea.hide();
+            $deploy.click(function(){
+                $hiddenArea.show();
+                $(this).hide();
+            });
+            //第一次加载页面时候
+            var Url="http://138.128.203.57/wasai/api.php";
+            var data=[{cmd:"mrace",subcmd:"detail",val:{ID:1}},{cmd:"mraceComment",subcmd:"hotList",val:{race_id:1}},{cmd:"mraceComment",subcmd:"list",val:{race_id:1}}];
+            $('.lasticon').click(function(){
+                var $input=$('.footer input')[0].value;
+
+                if($input!=""){
+                    var comment={cmd:"mraceComment",subcmd:"add",userid:1,val:{race_id:1,comment:$input}};
+                    $.ajax({
+                        url:Url,
+                        type: 'post',
+                        dataType: 'json',
+                        data:{"input":JSON.stringify(comment)},
+                        success:function(data){
+                            console.log(data)
+                        }
+                    })
+                }
+            });
+
+            $.ajax({
+                url:Url,
+                type: 'post',
+                dataType: 'json',
+                data:{"input":JSON.stringify(data[0])},
+                success:function(data){
+                    if(data.err!=0){
+                        console.log(data);
+                        return
+                    }
+                    var str=null;
+                    var signUpData=data.val.group;
+                    for(var i=0;i<signUpData.length;i++){
+                        str='<li class="flex">' +
+                                '<span class="atc-group-title">'+signUpData[i].name+'</span>' +
+                                '<span class="atc-group-money">RMB '+parseInt(signUpData[i].price)+'/人</span>' +
+                                '<button class="btn act-group-btns">一键报名</button>' +
+                                '</li>';
+                    }
+                    $('.atc-group').append(str)
+
+                },
+                error:function(e){
+                    console.log(e)
+                }
+            });
+//热门评论
+            $.ajax({
+                url:Url,
+                type: 'post',
+                dataType: 'json',
+                data:{"input":JSON.stringify(data[1])},
+                success:function(data){
+                    if(data.err!=0){
+                        return
+                    }
+                    var str=null;
+                    var hotList=data.val;
+                    for(var i=0;i<hotList.length;i++){
+                       str='<li>' +
+                               '<span class="portrait"></span>' +
+                               '<div>' +
+                               '<span class="name">'+hotList[i].nickname+'</span>' +
+                               '<span class="time">'+hotList[i].create_time+'</span>' +
+                               '<span class="vote">'+hotList[i].like_sum+'<i class="pm-icon2 pm-icon2-2"></i></span>' +
+                               '</div>' +
+                               '<p>'+hotList[i].comment+'</p>' +
+                               '</li>'
+                    }
+                    $('.hostList').append(str)
+                },
+                error:function(e){
+                    console.log(e)
+                }
+            });
+//全部评论
+            $.ajax({
+                url:Url,
+                type: 'post',
+                dataType: 'json',
+                data:{"input":JSON.stringify(data[2])},
+                success:function(data){
+                    if(data.err!=0){
+                        return
+                    }
+                    var str='';
+                    var List=data.val.list;
+                    for(var i=0;i<List.length;i++){
+                        str+='<li>' +
+                                '<span class="portrait"></span>' +
+                                '<div>' +
+                                '<span class="name">'+List[i].nickname+'</span>' +
+                                '<span class="time">'+List[i].create_time+'</span>' +
+                                '<span class="vote">'+List[i].like_sum+'<i class="pm-icon2 pm-icon2-2"></i></span>' +
+                                '</div>' +
+                                '<p>'+List[i].comment+'</p>' +
+                                '</li>'
+                    }
+                    $('.List').append(str)
+                },
+                error:function(e){
+                    console.log(e)
+                }
+
+            })
+
+        })
+
+    </script>
+</div>
+</body>
+</html>
