@@ -153,7 +153,6 @@
             -ms-flex-align: center;
             align-items: center;
         }
-        }
         .weui_cells_title {
             background-color: #e6e6e6;
             margin: 0;
@@ -178,7 +177,9 @@
         .weui_input {
             text-align: center
         }
+        #s11:checked{
 
+        }
         .myFt {
             position: relative;
             text-align: center;
@@ -267,11 +268,11 @@
         </div>
     </div>
     <section>
-        <div class="form-wraper">
+        <form class="form" onsubmit="return validateForm()">
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">报名组别</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select name="select0" class="weui_select">
+                    <select name="race_group_id" class="weui_select">
                         <option value="1">42公里全码</option>
                         <option value="2">半码</option>
                         <option value="3">迷你</option>
@@ -291,8 +292,7 @@
                                 <ul class="weui_uploader_files">
                                 </ul>
                                 <div class="weui_uploader_input_wrp">
-                                    <input type="file" class="weui_uploader_input" onchange="processFiles1(this.files)" id="upLoader1"
-                                           accept="image/jpg,image/ipeg,image/png,image/gif" multiple="">
+                                    <input type="file" class="weui_uploader_input" onchange="processFiles.call(this,this.files)" accept="image/jpg,image/ipeg,image/png,image/gif" multiple="" name="0">
                                 </div>
                             </div>
                         </div>
@@ -302,7 +302,7 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">姓名</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="需与有效证件一致"/>
+                        <input type="text" class="weui_input" placeholder="需与有效证件一致" name="name"/>
                     </div>
                 </div>
                 <div class="weui_cell weui_cells_radio">
@@ -311,7 +311,7 @@
                     <div class="weui_cell_primary">
                         <label class="weui_check_label" for="x11">
                             <div class="weui_cell_hd">
-                                <input type="radio" class="weui_check" name="sex" id="x11">
+                                <input type="radio" class="weui_check" name="sex" value=1 id="x11">
                                 <i class="weui_icon_checked"></i>
                             </div>
                             <div class="weui_cell_bd">
@@ -322,7 +322,7 @@
                     <div class="weui_cell_primary">
                         <label class="weui_check_label" for="x12">
                             <div class="weui_cell_hd">
-                                <input type="radio" class="weui_check" name="sex" id="x12">
+                                <input type="radio" class="weui_check" name="sex" value=2 id="x12">
                                 <i class="weui_icon_checked"></i>
                             </div>
                             <div class="weui_cell_bd">
@@ -333,13 +333,13 @@
                 <div class="weui_cell">
                     <div class="weui_cell_hd"><label for class="weui_label">出生日期</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="date" class="weui_input" value>
+                        <input type="date" class="weui_input" name="birthday">
                     </div>
                 </div>
                 <div class="weui_cell weui_cell_select weui_select_after">
                     <div class="weui_cell_hd">身份证件类型</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select name="select1" class="weui_select">
+                        <select name="ident_type" class="weui_select">
                             <option value="1">身份证</option>
                             <option value="2">暂住证</option>
                             <option value="3">港澳台通行证</option>
@@ -351,13 +351,13 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">证件号码</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="请输入证件号码"/>
+                        <input type="text" class="weui_input" placeholder="请输入证件号码" title="你输入的身身份证号码格式不正确" pattern="(\d{6})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(?:\d|X|x)" name="ident_number" required/>
                     </div>
                 </div>
                 <div class="weui_cell weui_cell_select weui_select_after">
                     <div class="weui_cell_hd">国家/地区</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select name="select2" class="weui_select">
+                        <select class="weui_select">
                             <option value="1">中国</option>
                             <option value="2">美国</option>
                             <option value="3">英国</option>
@@ -372,39 +372,35 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">城市</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="请输入现居住城市"/>
+                        <input type="text" class="weui_input" placeholder="请输入现居住城市" name="city_name"/>
                     </div>
                 </div>
-                <div class="weui_cell weui_cell_warn">
+                <div class="weui_cell">
                     <div class="weui_cell_hd"><label for class="weui_label">手机</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input class="weui_input" type="number" pattern="[0-9]"/>
-                    </div>
-                    <div class="weui_cell_ft">
-                        <i class="weui_icon_warn"></i>
+                        <input class="weui_input" type="number" placeholder="请输入正确的手机号" pattern="[0-9]" name="mobile" required/>
                     </div>
                 </div>
                 <div class="weui_cell">
                     <div class="weui_cell_hd">
                         <label class="weui_label">邮寄地址</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="请输入详细邮寄地址"/>
+                        <input type="text" class="weui_input" placeholder="请输入详细邮寄地址" name="mail_address" required/>
                     </div>
                 </div>
                 <div class="weui_cell">
                     <div class="weui_cell_hd">
                         <label class="weui_label">邮编</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="number" class="weui_input" pattern="[0-9]" placeholder="请输入邮编号"/>
+                        <input type="number" class="weui_input" pattern="[0-9]" placeholder="请输入邮编号" name="zip_code" required/>
                     </div>
                 </div>
                 <div class="weui_cell weui_cell_select weui_select_after">
                     <div class="weui_cell_hd">线上联系方式</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select name="select3" class="weui_select">
+                        <select name="online_contact_type" class="weui_select">
                             <option value="1">微信号</option>
                             <option value="2">QQ</option>
-                            <option value="3">陌陌</option>
                         </select>
                     </div>
                 </div>
@@ -412,23 +408,22 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">号码</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="请输入线上联系方式" pattern="^[1-9]\\d{4,10}$"/>
+                        <input type="text" class="weui_input" placeholder="请输入线上联系方式" pattern="[1-9]\\d{4,10}" name="online_contact" required/>
                     </div>
                 </div>
                 <div class="weui_cell weui_cell_select weui_select_after">
                     <div class="weui_cell_hd">选择服装尺码</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select name="select4" class="weui_select">
+                        <select name="cloth_size" class="weui_select">
                             <option value="1">M</option>
                             <option value="2">S</option>
                             <option value="3">L</option>
                             <option value="4">XL</option>
                             <option value="5">XXL</option>
                             <option value="6">XXXL</option>
-                            X
                             <option value="7">XS</option>
                             <option value="7">XXS</option>
-                            <option selected value="8"></option>
+                            <option selected value="0"></option>
                         </select>
                     </div>
                 </div>
@@ -443,8 +438,7 @@
                                 <ul class="weui_uploader_files">
                                 </ul>
                                 <div class="weui_uploader_input_wrp">
-                                    <input type="file" onchange="processFiles2(this.files)" class="weui_uploader_input" id="upLoader2"
-                                           accept="image/jpg,image/ipeg,image/png,image/gif" multiple/>
+                                    <input type="file" onchange="processFiles.call(this,this.files)" class="weui_uploader_input" accept="image/jpg,image/ipeg,image/png,image/gif" multiple name="1"/>
                                 </div>
                             </div>
                         </div>
@@ -453,12 +447,12 @@
                 <div class="weui_cell weui_cell_select weui_select_after">
                     <div class="weui_cell_hd">选择血型</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <select name="select5" class="weui_select">
+                        <select name="blood_type" class="weui_select">
                             <option value="1">A</option>
                             <option value="2">B</option>
                             <option value="3">AB</option>
                             <option value="4">O</option>
-                            <option selected value="8"></option>
+                            <option selected value="0"></option>
                         </select>
                     </div>
                 </div>
@@ -466,29 +460,29 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">紧急联系人姓名</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="text" class="weui_input" placeholder="请输入姓名"/>
+                        <input type="text" class="weui_input" placeholder="请输入姓名" pattern="[\u4E00-\u9FA5]{2,4}" name="urgent_name" required/>
                     </div>
                 </div>
                 <div class="weui_cell">
                     <div class="weui_cell_hd">
                         <label class="weui_label">紧急联系人手机</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="number" class="weui_input" placeholder="请输入手机号"/>
+                        <input type="number" class="weui_input" placeholder="请输入手机号" name="urgent_mobile" required/>
                     </div>
                 </div>
                 <div class="weui_cells_title"></div>
                 <div class="weui_cells weui_cells_checkbox">
                     <label class="weui_cell" for="s11">
                         <div class="weui_cell_hd">
-                            <input type="checkbox" class="weui_check" name="checkbox1" id="s11">
+                            <input type="checkbox" class="weui_check" name="checkbox1" id="s11" checked>
                             <i class="weui_icon_checked"></i>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
                             <p>我已详细查看挖赛体育报名细则</p>
                         </div>
-                        <div class="weui_cell_ft weui_cell_warn">
+                       <!-- <div class="weui_cell_ft weui_cell_warn">
                             <i class="weui_icon_warn"></i>
-                        </div>
+                        </div>-->
                     </label>
 
                     <div class="content">
@@ -501,41 +495,107 @@
 
             </div>
             <div class="bd spacing">
-                <input class=weui_btn type="button" name="btn" value="提交">
+                <input class=weui_btn type="submit" value="提交">
             </div>
-        </div>
+        </form>
     </section>
-    <script type="text/javascript">
-        function processFiles1(files) {
-            var upLoad = document.getElementsByClassName('weui_uploader_files')[0];
-            var file = files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var Li = document.createElement('li');
-                Li.className = 'weui_uploader_file';
-                Li.style.backgroundImage = 'url("' + e.target.result + '")';
-                upLoad.appendChild(Li)
+    <script src="js/jquery.min.js"></script>
+    <script>
+        function validateForm() {
+            if (!Modernizr.input.required) {
+                // The required attribute is not supported, so you need to check the
+                // required fields yourself.
 
-            };
-            reader.readAsDataURL(file)
+                // First, get an array that holds all the elements.
+                var inputElements = document.getElementsByClassName("form")[0].elements;
+                // Next, move through that array, checking eaching element.
+                for(var i = 0; i < inputElements.length; i++) {
 
+                    // Check if this element is required.
+                    if (inputElements[i].hasAttribute("required")) {
+                        // If this elemnent is required, check if it has a value.
+                        // If not, the form fails validation, and this function returns false.
+                        if (inputElements[i].value == "") {
+                            alert("Custom required-field validation failed. The form will not be submitted.");
+                            return false;
+                        }
+                    }
+                }
+
+                // If you reach this point, everything worked out and the browser
+                // can submit the form.
+                return true;
+            }
         }
-        function processFiles2(files) {
-            var upLoad = document.getElementsByClassName('weui_uploader_files')[1];
+
+        function processFiles(files) {
+            var upLoad = document.getElementsByClassName('weui_uploader_files')[this.name];
             var file = files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
                 var Li = document.createElement('li');
                 Li.className = 'weui_uploader_file';
-                Li.style.backgroundImage = 'url("' + e.target.result + '")';
+                Li.style.backgroundImage = 'url("' +  e.target.result + '")';
                 upLoad.appendChild(Li)
 
             };
             reader.readAsDataURL(file)
+        }
+        function serialize(form,val) {
+            var eles = form.elements;
+            //先应该把必填项验证完，需要用到上面的validateForm(),如果必填项填了，然后再往val对象里放相应的值
+            for(var i=0;i<eles.length;i++){
+                var ele=eles[i];
+                if (!ele.name)continue;//如果没有name属性，则忽略这个表单
+                switch (ele.type) {
+                    case "select-one":
+                   // case "select-multiple":
+                        var options = ele.options;//这是下拉菜单固有属性
 
+                        for (var j = 0; j < options.length; j++) {
+                            var opt = options[j];
+                            if (opt.selected) {
+                                val[ele.name]=opt.value;
+                            }
+                        }
+                        break;
+
+                    case "radio":
+                    case "checkbox":
+                        if (!ele.checked)break;
+                    default:
+                        val[ele.name]=ele.value;
+                }
+            }
+            console.log(val)
         }
         //http://wxb.github.io/dropzonejs.com.zh-CN/dropzonezh-CN/
         //http://blog.bingo929.com/renren-drag-drop-photo-filereader-formdata.html
+    </script>
+    <script>
+        $(function(){
+            var Url="http://138.128.203.57/wasai/api.php";
+            var val={race_group_id:"",name:"",mobile:"",sex:0,birthday:"",ident_type:"",ident_number:"",city_name:"",mail_address:"",zip_code:"",online_contact_type:0,online_contact:"",cloth_size:0,marathon_prove:"",blood_type:0,urgent_name:"",urgent_mobile:""};
+            var data={cmd:"mraceOrder",subcmd:"signUp",userid:0,val:val};
+            var form=$('.form')[0];
+
+            $('.weui_btn').click(function(){
+                serialize(form,val);
+                if(!$('#s11')[0].checked){
+                    alert("请详细阅读哇塞报名细则");
+                    return
+                }
+                $.ajax({
+                    url:Url,
+                    type: 'post',
+                    dataType: 'json',
+                    data:{"input":JSON.stringify(data)},
+                    success:function(data){
+                        console.log(data)
+                    }
+                })
+            })
+        })
     </script>
 </div>
 </body>

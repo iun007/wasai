@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>拼马详情</title>
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <style>
+        body {
+            font-family: "PingFang SC Light","Heiti SC","San Francisco","Helvetica";
+            color: #333;
+            min-width: 320px;
+            max-width: 640px;
+            overflow-x: hidden;
+            margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        header {
+            color: white;
+            padding: 10px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+        header a {
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        header a:after{
+            position: absolute;
+            top: 6px;
+            left: 7px;
+            content: "";
+            display: inline-block;
+            transform: rotate(-135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color:#0263B5;
+            border-style: solid;
+        }
+
+        main {
+            padding:10px 10px 60px;
+
+        }
+        h2{
+            font-size: 16px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .someone {
+            position: relative;
+            height: 40px;
+            padding-bottom: 10px;
+        }
+
+        .someone:after {
+            content: " ";
+            display: inline-block;
+            transform: rotate(45deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -3px;
+        }
+
+        .portrait {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            border: 1px solid dodgerblue;
+            border-radius: 50% 50%;
+            background: dodgerblue;
+        }
+
+        .detail {
+            margin-left: 50px;
+            height: 40px;
+            font-size: 14px;
+        }
+        .time{
+            font-size: 14px;
+        }
+
+        .detail div {
+            height: 20px;
+            line-height: 20px;
+        }
+         p{
+            font-size:12px ;
+        }
+        .name{
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .RelatedPictures {
+
+        }
+
+        .RelatedPictures ul {
+            overflow: hidden;
+            padding: 10px 0;
+            width: 255px;
+        }
+
+        .RelatedPictures ul li {
+            float: left;
+            height: 75px;
+            margin-right: 10px;
+        }
+
+        .RelatedPictures ul li img {
+            width: 75px;
+            height: 75px;
+        }
+
+        .flatshareStatus {
+            display: inline-block;
+            padding: 5px 0;
+            float: right;
+            font-size: 14px;
+            margin-top: -90px;
+            width: 25px;
+            text-align: center;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+        }
+
+        .flatshareInfo {
+            position: relative;
+            font-size: 14px;
+        }
+
+        .flatshareInfo:before {
+            content: "";
+            display: block;
+            height: 1px;
+            top: 0;
+            background:#d9d9d9;
+        }
+        hr{
+            width: 100%;
+            border-top:1px solid #d9d9d9;
+            border-left: 0;
+            border-bottom: 0;
+            border-right: 0;
+        }
+        .flatshareInfo:after {
+            content: "";
+            display: block;
+            height: 1px;
+            bottom: 0;
+            background:#d9d9d9;
+        }
+
+        .flatshareInfo div {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .headerInfo {
+            margin-left: 5px;
+        }
+
+        .skip {
+            position: relative;
+            top: 10px;
+            float: right;
+            width: 15px;
+            height: 15px;
+
+        }
+
+        .skip:after {
+            position: absolute;
+            top: 4px;
+            left: 2px;
+            content: "";
+            display: inline-block;
+            transform: rotate(45deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+        }
+
+        .middleInfo {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+        }
+
+        .lastInfo {
+            float: right;
+        }
+
+        .pm-icon {
+            background: url('images_pingma/pinma-icon.png') no-repeat;
+            background-size: 13.5px 65px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon1 {
+            position: relative;
+            top: -2px;
+            height: 15px;
+            width: 15px;
+            background-position: 0 0;
+        }
+
+        .icon2 {
+            position: relative;
+            top: -2px;
+            height: 15px;
+            width: 15px;
+            background-position: 0 -16px;
+        }
+
+        .icon3 {
+            position: relative;
+            top: -2px;
+            height: 15px;
+            width: 15px;
+            background-position: 0 -33px;
+        }
+
+        .icon4 {
+            position: relative;
+            top: -2px;
+            height: 13px;
+            width: 13px;
+            background-position: 0 -49px;
+        }
+        .pm-icon2{
+            background: url('images_pingma/pingma-icon2.png') no-repeat;
+            background-size: 13px 58px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .pm-icon2-1{
+            height: 13px;
+            width: 13px;
+            background-position: 0 -29px;
+        }
+        .pm-icon2-2{
+            margin-left: 5px;
+            position: relative;
+            top: -2px;
+            height: 13px;
+            width: 13px;
+            background-position: 0 0;
+
+        }
+        .button {
+            margin: 15px auto;
+            width: 70%;
+            height: 38px;
+            line-height: 38px;
+            color: white;
+            background-color: #0263B5;
+            text-align: center;
+            border: 1px solid #0263B5;
+            border-radius: 5px;
+        }
+
+        .condition {
+            padding: 10px 0;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .condition li {
+            float: left;
+            padding: 0 8px;
+            line-height: 30px;
+            background: #f7f7f7;
+            border: 1px solid #eeeeee;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #686868;
+        }
+
+        .sameMessage li {
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .logo img {
+            position: absolute;
+            width: 56px;
+            height: 56px;
+        }
+
+        .title {
+            margin-left: 65px;
+            font-size: 12px;
+            height: 56px;
+        }
+
+        .title p {
+            height: 36px;
+            line-height: 18px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .title div {
+            margin-top: 2px;
+            height: 18px;
+            line-height: 18px;
+            display: flex;
+            color: #a0a0a0;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+
+        }
+
+        .title div span img {
+            width: 11px;
+            height: 11px;
+        }
+
+        .head {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .head div {
+            position: absolute;
+            top: 10px;
+            left: 70px;
+            font-size: 15px;
+        }
+
+        .somebody {
+            margin: 10px 0;
+        }
+        .somebody div{
+            padding:12px 0 12px 50px;
+            font-size: 10px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        .somebody li p{
+            padding: 10px 0;
+            color:#5a5a5a;
+            text-align:justify;
+        }
+
+        .loadingMore{
+            position: relative;
+            margin: 30px auto;
+            width: 50%;
+            height:30px;
+            line-height: 30px;
+            border: 1px solid #d7d7d7;
+            border-radius: 5px;
+            text-align: center;
+            background:#f2f2f2 ;
+
+        }
+        .loadingMore:after{
+            content: " ";
+            display: inline-block;
+            transform: rotate(135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: black;
+            border-style: solid;
+            position: absolute;
+            top:45%;
+            right: 10px;
+            margin-top: -3px;
+        }
+        .footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            background-color:rgba(241, 245, 248, 1) ;
+        }
+        .footer span:first-child{
+            margin: auto 5px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid white;
+            border-radius: 50% 50%;
+            background: white;
+        }
+        .footer input{
+            margin: auto;
+            height: 30px;
+        }
+        .footer span:last-child{
+            margin-right:5px ;
+            font-size: 14px;
+
+        }
+        .lasticon{
+            position: relative;
+            top: -2px;
+            height: 15px;
+            width: 15px;
+            background-position: 0 -28px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html"></a>
+        <h1>发起拼房</h1>
+    </header>
+<main>
+    <div class="details">
+        <div class="someone">
+            <div class="portrait"></div>
+            <div class="detail">
+                <div class="name">骑猫追虎</div>
+                <div class="time">17个小时之前</div>
+            </div>
+        </div>
+        <p>asuidiuadhoiajdpoajdpoajdpoajdpjdapd</p>
+
+        <div class="RelatedPictures">
+            <ul>
+                <li><img src="images_pingma/portrait1.png" alt=""/></li>
+                <li><img src="images_pingma/portrait2.png" alt=""/></li>
+                <li><img src="images_pingma/portrait3.png" alt=""/></li>
+            </ul>
+            <span class="flatshareStatus">
+                过期
+            </span>
+        </div>
+        <div class="flatshareInfo">
+            <div><i class="pm-icon icon1"></i><span class="headerInfo">黄山歙县山水画廊马拉松</span><span class="skip"></span>
+            </div>
+            <hr/>
+            <div><i class="pm-icon icon2"></i><span class="headerInfo">黄山凯宾斯基大酒店</span><span class="skip"></span></div>
+            <hr/>
+            <div><i class="pm-icon icon3"></i><span class="headerInfo">5月22日-5月25日</span><span
+                    class="lastInfo">共三天</span></div>
+            <hr/>
+            <div><i class="pm-icon icon4"></i><span class="headerInfo">招同屋1人</span><span
+                    class="price middleInfo">175元/人</span><span class="sex lastInfo">限女性</span></div>
+        </div>
+        <div class="button">
+            我要拼!
+        </div>
+    </div>
+    <div class="RelatedInfo">
+        <h2>相关标签</h2>
+        <ul class="condition">
+            <li>拼房</li>
+            <li>招</li>
+            <li>歙马</li>
+            <li>凯宾斯基酒店</li>
+            <li>女</li>
+        </ul>
+
+        <h2>该比赛招同屋</h2>
+        <ul class="sameMessage ">
+            <li>
+                <div class="logo"><img src="images_pingma/portrait1.png"></div>
+                <div class="title"><p>网络强国战略习近平与“十三五”十四大战略</p>
+
+                    <div>
+                        <span>黄山凯宾斯基大酒店</span><span>175元/人</span><span><i class="pm-icon2 pm-icon2-1"></i>186</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="logo"><img src="images_pingma/portrait2.png"></div>
+                <div class="title"><p>网络强国战略习近平与“十三五”十四大战略</p>
+
+                    <div><span>黄山凯宾斯基大酒店</span><span>175元/人</span><span><i class="pm-icon2 pm-icon2-1"></i>186</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="logo"><img src="images_pingma/portrait3.png"></div>
+                <div class="title"><p>网络强国战略习近平与“十三五”十四大战略</p>
+
+                    <div><span>黄山凯宾斯基大酒店</span><span>175元/人</span><span><i class="pm-icon2 pm-icon2-1"></i>186</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="logo"><img src="images_pingma/portrait4.png"></div>
+                <div class="title"><p>网络强国战略习近平与“十三五”十四大战略</p>
+
+                    <div><span>黄山凯宾斯基大酒店</span><span>175元/人</span><span><i class="pm-icon2 pm-icon2-1"></i>186</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="comment">
+        <div class="head">
+            <h2>全部评论</h2>
+
+            <div>（32）</div>
+        </div>
+        <hr/>
+        <div>
+            <ul class="somebody">
+                <li>
+                    <span class="portrait"></span>
+                    <div>
+                        <span class="name">haha123</span>
+                        <span class="time">刚刚</span>
+                        <span class="vote">213<i class="pm-icon2 pm-icon2-2"></i></span>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet</p>
+                </li>
+            </ul>
+
+        </div>
+        <hr/>
+        <div class="loadingMore">查看更多评论</div>
+    </div>
+</main>
+<div class="footer">
+    <span></span>
+    <input type="text" placeholder="我也说几句"/>
+    <span><i class="pm-icon2 lasticon"></i>评论99</span>
+</div>
+
+</body>
+</html>

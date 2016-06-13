@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>拼马列表</title>
+</head>
+<link rel="stylesheet" href="../css/reset.css"/>
+<style>
+    html {
+        width: 100%;
+        height: 100%;
+        background:rgba(241, 245, 248, 1);
+        overflow: hidden;
+    }
+    body {
+        font-family:  "PingFang SC Light","Heiti SC","San Francisco","Helvetica";
+        color: #333;
+        min-width: 320px;
+        max-width: 640px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .navTop{
+        position: relative;
+    }
+    .navTop>ul{
+        display: table;
+        width: 100%;
+        overflow: hidden;
+        font-size: 14px;
+        height: 100%;
+        color: white;
+        background:#0265B2;
+    }
+
+    .navTop>ul li {
+        display: table-cell;
+        height: 100%;
+        line-height: 43px;
+        width: 80px;
+        text-align: center;
+        position: relative;
+    }
+    hr{
+        border-top:1px solid #d9d9d9;
+        border-left: 0;
+        border-bottom: 0;
+        border-right: 0;
+    }
+    .navTop ul li .xb {
+        position: relative;
+        display: inline-block;
+        margin-left: 10px;
+        width: 5px;
+        height: 5px;
+        transform: rotate(225deg);
+        border-left: 2px solid white;
+        border-top: 2px solid white;
+    }
+
+    .navTop ul li:last-child div{
+        position: relative;
+        background: #ffffff;
+        color: #0064b2;
+        width: 65px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 10px;
+    }
+
+    .ft {
+        display: inline-block;
+        margin-left: 1px;
+        width: 20px;
+        height: 20px;
+        float: left;
+        background: url('images_pingma/post.png') no-repeat;
+        background-size: 20px 20px;
+        vertical-align: middle;
+    }
+    .filter-detail-list {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .animated {
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .fadeInDown {
+        -webkit-animation-name: fadeInDown;
+        animation-name: fadeInDown;
+    }
+    .race-fiter-list li .xb {
+        position: relative;
+        transform-origin: 20% 50%;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+    .race-fiter-list li.selected .xb {
+        -webkit-transform: rotate(45deg) translateY(1px);
+        transform: rotate(45deg) translateY(1px);
+    }
+    .filter-detail-list {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+    }
+    .filter-detail-list li {
+        line-height: 40px;
+        height: 40px;
+        border-bottom: 1px solid #e0e0e0;
+        background-color: #fff;
+        font-size: 14px;
+        text-indent: 4%;
+    }
+    .supply-demand ul li.selected{
+        background: #e6e6e6;
+    }
+    .match ul li.selected{
+        background: #e6e6e6;
+    }
+    .sex ul li.selected{
+        background:#e6e6e6;
+    }
+    .priceRank ul li.selected{
+        background:#e6e6e6;
+    }
+    .hide{
+        display: none;
+    }
+
+
+    main {
+        padding: 5px 5px 60px;
+    }
+    .sect{
+        background-color: white;
+    }
+    main > div {
+        position: relative;
+        padding: 10px;
+    }
+    main div ul {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+    main div ul li {
+        float: left;
+        line-height: 20px;
+        padding: 0 5px;
+        background: #f0f0f0;
+        border-radius: 5px;
+        font-size: 12px;
+        color: #686868;
+    }
+    main div p {
+        font-family: PingFangSC-Regular;
+        font-size: 14px;
+        color: #2e2e2e;
+        text-align: justify;
+        margin-top: 10px;
+    }
+    main div p span {
+        color: #10aeff;
+    }
+    ol{
+        overflow: hidden;
+        margin-top:10px;
+    }
+    ol li{
+        float: left;
+        height: 75px;
+        margin-right: 5px;
+    }
+    ol li img{
+        width: 75px;
+        height: 75px;
+    }
+    .footer {
+        margin-top:10px;
+        padding-bottom: 10px;
+        font-size: 12px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+    .footer .time {
+        color: #939393;
+        text-align: left;
+    }
+    .num{
+        color: #0265B2;
+    }
+    .num img{
+        position: relative;
+        top: -2px;
+        width: 12px;
+        height: 11px;
+        vertical-align: bottom;
+    }
+    .loadingmore {
+        margin: 15px auto;
+        height: 20px;
+        width: 60%;
+        text-align: center;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        background-color: gainsboro;
+    }
+    #nav {
+        width: 100%;
+        max-width: 640px;
+        border-top: 1px solid #DEDEDE;
+        border-bottom: 1px solid #F8F8F8;
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        justify-content: space-between;
+        align-content: center;
+        background-color: #FFF;
+    }
+    #nav a {
+        margin: 4px 0;
+        font-size: 20px;
+        color: #999;
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        text-align: center;
+        box-sizing: border-box;
+        display: block;
+    }
+    #nav span {
+        font-size: 30px;
+        background-color: #FFF;
+        display: block;
+        margin-bottom: 2px;
+    }
+    #nav p {
+        font-size: 14px;
+        line-height: 1;
+        padding-top: 3px;
+        color: #333;
+        margin: -3px 0 5px;
+    }
+    @media screen and (max-width: 640px){
+        #nav span {
+            font-size: 22px;
+            height: 22px;
+            background-color: #FFF;
+            margin-bottom: 4px;
+        }
+        #nav p {
+            display: block;
+            font-size: 10px;
+            color: #666;
+            line-height: 0.7;
+        }
+    }
+
+    .icon-bottom i{
+        width: 22px;
+        height: 22px;
+        background: url('images_pingma/tubiao2.png') no-repeat;
+        background-size: 50px 96.5px;
+        display: inline-block;
+    }
+    .icon-bottom .icon-race{
+        background-position: -29px 0;
+
+    }
+    .icon-bottom .icon-rent{
+        background-position: 0 -27px;
+    }
+    .icon-bottom .icon-news{
+        background-position: -29px -53px;
+    }
+    .icon-bottom .icon-me{
+        background-position: -28px -78px;
+    }
+    #nav .rentPage p {
+        color: #1875d4;
+    }
+    @-webkit-keyframes fadeInDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+    .shelter {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 6;
+        -moz-opacity: 0.5;
+        opacity: .50;
+        filter: alpha(opacity=50);
+    }
+
+</style>
+<body>
+<nav class="navTop">
+    <ul class="race-fiter-list">
+        <li data-render="supply-demand">供需<i class="xb"></i></li>
+        <li data-render="match" class="">赛事<i class="xb"></i></li>
+        <li data-render="sex" class="">性别<i class="xb"></i></li>
+        <li data-render="priceRank">价格<i class="xb"></i></li>
+        <li><div><i class="ft"></i><span>发帖</span></div></li>
+    </ul>
+    <div class="filter-detail-list supply-demand hide">
+        <ul>
+            <li>招同屋</li>
+            <li>求拼房</li>
+        </ul>
+    </div>
+    <div class="filter-detail-list match hide">
+        <ul>
+            <li>黄山马拉松</li>
+            <li>北海道马拉松</li>
+            <li>牡丹江马拉松</li>
+        </ul>
+    </div>
+    <div class="filter-detail-list sex hide">
+        <ul>
+            <li>男</li>
+            <li>女</li>
+            <li>男&女</li>
+        </ul>
+    </div>
+    <div class="filter-detail-list priceRank hide">
+        <ul>
+            <li>从低到高</li>
+            <li>从高到低</li>
+        </ul>
+    </div>
+</nav>
+<main class="content">
+    <div class="sect">
+        <ul>
+            <li>招租</li>
+            <li>歙马</li>
+            <li>男</li>
+            <li>凯宾斯基大酒店</li>
+            <li>1000元/天</li>
+        </ul>
+        <p><span>@少林熊猫</span>:我就是过来看看是否有人能帮我分担一下开支，本人熊壮汉睡觉打呼噜平时大烟枪，价格全包</p>
+        <ol>
+            <li><img src="images_pingma/portrait3.png" alt=""/></li>
+            <li><img src="images_pingma/portrait2.png" alt=""/></li>
+            <li><img src="images_pingma/portrait1.png" alt=""/></li>
+        </ol>
+        <div class="footer">
+            <span class="time">7分钟前</span>
+            <span class="num"><img src="images_pingma/talk.png" alt=""/>186</span>
+        </div>
+    </div>
+    <hr/>
+    <div class="sect">
+        <ul>
+            <li>招租</li>
+            <li>歙马</li>
+            <li>男</li>
+            <li>凯宾斯基大酒店</li>
+            <li>1000元/天</li>
+        </ul>
+        <p><span>@少林熊猫</span>:我就是过来看看是否有人能帮我分担一下开支，本人熊壮汉睡觉打呼噜平时大烟枪，价格全包</p>
+        <ol>
+            <li><img src="images_pingma/portrait3.png" alt=""/></li>
+            <li><img src="images_pingma/portrait2.png" alt=""/></li>
+            <li><img src="images_pingma/portrait1.png" alt=""/></li>
+        </ol>
+        <div class="footer">
+            <span class="time">7分钟前</span>
+            <span class="num"><img src="images_pingma/talk.png" alt=""/>186</span>
+        </div>
+    </div>
+    <div class="loadingmore">
+        加载中
+    </div>
+</main>
+<div class="bg"></div>
+<div id="nav">
+        <a class="racePage" href="../index.html">
+            <span class="icon-bottom"><i class="icon-race"></i></span>
+            <p>赛事</p>
+        </a>
+        <a class="rentPage" href="">
+            <span class="icon-bottom"><i class="icon-rent"></i></span>
+            <p>拼马</p>
+        </a>
+        <a class="newsPage" href="../news">
+            <span class="icon-bottom"><i class="icon-news"></i></span>
+            <p>消息</p>
+        </a>
+        <a class="runnerPage" href="../my">
+            <span class="icon-bottom"><i class="icon-me"></i></span>
+            <p>我的</p>
+        </a>
+    </div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script>
+    $(function(){
+        $('.bg').bind('click',function(){
+            $('.race-fiter-list li').removeClass('selected').siblings().removeClass('change');
+            $(this).removeClass('shelter');
+            $('.filter-detail-list').addClass('hide');
+        });
+        $('.race-fiter-list li:not(:last)').on('click', function (event) {
+            var idx = $(this).index();
+            if (!$(this).hasClass('selected')) {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                $('.filter-detail-list').addClass('hide');
+                $('.bg').addClass('shelter');
+                var curList = $(this).attr('data-render');
+                $('.' + curList).removeClass('hide').addClass('fadeInDown animated');
+            } else {
+                $(this).removeClass('selected').siblings();
+                $('.bg').removeClass('shelter');
+                $('.filter-detail-list').addClass('hide');
+            }
+        });
+
+    })
+</script>
+</html>
