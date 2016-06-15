@@ -2,7 +2,7 @@
  * Created by iun007 on 2016/4/21.
  */
 (function () {
-    var $urlHost = ['http://www.shouzi.ren/index.php?g=Api&m=Web&a=getLunbo&datatype=jsonp', 'http://www.138.128.203.57/wasai/api.php',"http://138.128.203.57/front"];
+    var $urlHost = ['http://www.shouzi.ren/index.php?g=Api&m=Web&a=getLunbo&datatype=jsonp', 'http://www.138.128.203.57/wasai/api.php',"http://www.138.128.203.57/front"];
     var obj = {cmd:"mrace",subcmd:"list",val:{status:1}};
     var initialDataModel = {
         addZero: function (val) {
@@ -74,7 +74,7 @@
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
                     if(data.err==1998){
-                           window.location.href="http://wasai.wenyuhai.com/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
+                           window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return
                     }
                     _this.callback1(arguments[0]);
