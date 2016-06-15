@@ -26,6 +26,7 @@
     }
     .navTop{
         position: relative;
+        z-index: 100;
     }
     .navTop>ul{
         display: table;
@@ -82,11 +83,7 @@
         background-size: 20px 20px;
         vertical-align: middle;
     }
-    .filter-detail-list {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
+
     .animated {
         -webkit-animation-duration: 0.3s;
         animation-duration: 0.3s;
@@ -348,7 +345,7 @@
         <li data-render="match" class="">赛事<i class="xb"></i></li>
         <li data-render="sex" class="">性别<i class="xb"></i></li>
         <li data-render="priceRank">价格<i class="xb"></i></li>
-        <li><div><i class="ft"></i><span>发帖</span></div></li>
+        <li><a href="LaunchFlatshare.html"><div><i class="ft"></i><span>发帖</span></div></a></li>
     </ul>
     <div class="filter-detail-list supply-demand hide">
         <ul>
@@ -444,11 +441,13 @@
 <script src="../js/jquery.min.js"></script>
 <script>
     $(function(){
+        //遮罩层
         $('.bg').bind('click',function(){
             $('.race-fiter-list li').removeClass('selected').siblings().removeClass('change');
             $(this).removeClass('shelter');
             $('.filter-detail-list').addClass('hide');
         });
+        //导航栏动态设置
         $('.race-fiter-list li:not(:last)').on('click', function (event) {
             var idx = $(this).index();
             if (!$(this).hasClass('selected')) {
@@ -463,6 +462,18 @@
                 $('.filter-detail-list').addClass('hide');
             }
         });
+        //第一次加载或刷新页面数据初始化
+        $.ajax({
+            url:Url,
+            type: 'post',
+            dataType: 'json',
+            data:{"input":JSON.stringify(data[0])}
+
+
+
+
+        })
+
 
     })
 </script>

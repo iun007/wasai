@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>发起拼房</title>
     <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery.datetimepicker.css"/>
     <style>
         html{
             background: rgba(241, 245, 248, 1);
@@ -97,6 +98,10 @@
         .weui_textarea{
         background-color: #f2f2f2;
         }
+        .datepick1,.datepick2{
+            text-align: center;
+            width: auto;
+        }
     </style>
 </head>
 <body>
@@ -105,7 +110,7 @@
         <a href="index.html"><span></span></a>
         发起拼房
     </h1>
-    <section>
+    <form class="form">
         <div class="weui_cells weui_cells_form">
             <div class="weui_cell weui_cells_radio">
                 <div class="weui_cell_hd">
@@ -113,7 +118,7 @@
                 <div class="weui_cell_primary">
                     <label class="weui_cell weui_check_label" for="x11">
                         <div class="weui_cell_hd">
-                            <input type="radio" class="weui_check" name="house" id="x11">
+                            <input type="radio" class="weui_check" value="1" name="type" id="x11">
                             <i class="weui_icon_checked"></i>
                         </div>
                         <div class="weui_cell_bd">
@@ -124,7 +129,7 @@
                 <div class="weui_cell_primary">
                     <label class="weui_cell weui_check_label" for="x12">
                         <div class="weui_cell_hd">
-                            <input type="radio" class="weui_check" name="house" id="x12">
+                            <input type="radio" class="weui_check" value="2" name="type" id="x12">
                             <i class="weui_icon_checked"></i>
                         </div>
                         <div class="weui_cell_bd">
@@ -135,11 +140,11 @@
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">赛事</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select name="select1" class="weui_select">
+                    <select name="race_name" class="weui_select">
                         <option value="1">某地1</option>
                         <option value="2">某地2</option>
                         <option value="3">某地3</option>
-                        <option selected=""></option>
+                        <option selected value="0"></option>
                     </select>
                 </div>
             </div>
@@ -153,19 +158,20 @@
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">日期</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input type="date" class="weui_input" value="">
+                    <input type="text" name="start_time" class="weui_input datepick1" required/>- -
+                    <input type="text" name="end_time" class="weui_input datepick2" required/>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">人数</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请填写与几人拼房">
+                    <input class="weui_input" name="people" type="number" min="1" max="10" placeholder="请填写与几人拼房" required>
                 </div>
             </div>
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">性别</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select name="select2" class="weui_select">
+                    <select name="sex" class="weui_select">
                         <option value="1">男</option>
                         <option value="2">女</option>
                         <option value="3">不限</option>
@@ -176,12 +182,12 @@
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">费用</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="单人单天金额(数字)">
+                    <input class="weui_input" type="number" name="price" placeholder="单人单天金额(数字)" required>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
-                    <textarea class="weui_textarea" placeholder="向可能的朋友介绍一下自己或房间及其他备注信息" rows="3"></textarea>
+                    <textarea class="weui_textarea" placeholder="向可能的朋友介绍一下自己或房间及其他备注信息" name="images" rows="3" required></textarea>
                 </div>
             </div>
             <div class="weui_cell">
@@ -191,7 +197,7 @@
                             <ul class="weui_uploader_files">
                             </ul>
                             <div class="weui_uploader_input_wrp">
-                                <input type="file" onchange="processFiles2(this.files)" class="weui_uploader_input" id="upLoader2" accept="image/jpg,image/ipeg,image/png,image/gif" multiple="">
+                                <input type="file" onchange="processFiles(this.files)" class="weui_uploader_input" name="images" accept="image/jpg,image/ipeg,image/png,image/gif" multiple required>
                             </div>
                         </div>
                     </div>
@@ -199,9 +205,81 @@
             </div>
         </div>
         <div class="bd spacing">
-            <input class="weui_btn" type="button" name="btn" value="提交">
+            <input class="weui_btn" type="submit" name="" value="提交">
         </div>
-    </section>
+    </form>
 </div>
 </body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.datetimepicker.full.min.js"></script>
+<script>
+    function processFiles(files) {
+        var upLoad = document.getElementsByClassName('weui_uploader_files')[0];
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var Li = document.createElement('li');
+            Li.className = 'weui_uploader_file';
+            Li.style.backgroundImage = 'url("' +  e.target.result + '")';
+            upLoad.appendChild(Li)
+
+        };
+        reader.readAsDataURL(file)
+    }
+
+    function GenerateObject (form,val) {
+        var eles = form.elements;
+        //先应该把必填项验证完，需要用到上面的validateForm(),如果必填项填了，然后再往val对象里放相应的值
+        for(var i=0;i<eles.length;i++){
+            var ele=eles[i];
+            if (!ele.name)continue;//如果没有name属性，则忽略这个表单
+            switch (ele.type) {
+                case "select-one":
+                    // case "select-multiple":
+                    var options = ele.options;//这是下拉菜单固有属性
+
+                    for (var j = 0; j < options.length; j++) {
+                        var opt = options[j];
+                        if (opt.selected) {
+                            val[ele.name]=opt.value;
+                        }
+                    }
+                    break;
+
+                case "radio":
+                case "checkbox":
+                    if (!ele.checked)break;
+                default:
+                    val[ele.name]=ele.value;
+            }
+        }
+        console.log(val)
+    }
+    $(function(){
+        $.datetimepicker.setLocale('ch');
+        $('.datepick1').datetimepicker({format: 'y-m-d h:i',value:"2016-05-05 00:00"});
+        $('.datepick2').datetimepicker({format: 'y-m-d h:i',value:"2016-05-05 00:00"});
+        var Url="http://138.128.203.57/wasai/api.php";
+        var val={type:0,race_id:1,race_name:"",hotel_name:"",start_time:"",end_time:"",images:"",remark:""};
+        var data={cmd:"mtogether",subcmd:"launch",userid:0,ck:"",val:val};
+
+        $('.weui_btn').click(function(){
+            GenerateObject($('.form')[0],val);
+            $.ajax({
+                url:Url,
+                type: 'post',
+                dataType: 'json',
+                data:{"input":JSON.stringify(data)},
+                success:function(data){
+                    console.log(data)
+                },
+                error:function(e){
+                    console.log(e)
+                }
+            })
+        })
+
+    })
+
+</script>
 </html>
