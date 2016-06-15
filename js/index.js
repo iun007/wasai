@@ -74,6 +74,7 @@
         },
         repeatedMethod: function () {
             var _this = this;
+            console.log(obj);
             $.ajax({
                 url: $urlHost[1],
                 type: 'post',
