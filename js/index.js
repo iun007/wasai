@@ -80,6 +80,8 @@
                 dataType: 'json',
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
+                    console.log(data);
+                    alert('ฮาพอบวบวมห');
                     if(data.err==1998){
                            window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return
@@ -247,6 +249,8 @@
     var userid =initialDataModel.queryURLParameter(url)["userid"];
     var ck=initialDataModel.queryURLParameter(url)["val"];
     var obj = {cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
+    console.log(obj);
+    alert('บวบว฿ี');
     initialDataModel.init();
 
     $('.bg').bind('click',function(){
