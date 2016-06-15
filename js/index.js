@@ -3,8 +3,15 @@
  */
 (function () {
     var $urlHost = ['http://www.shouzi.ren/index.php?g=Api&m=Web&a=getLunbo&datatype=jsonp', 'http://138.128.203.57/wasai/api.php',"http://wasai.wenyuhai.com/front"];
-    var obj = {cmd:"mrace",subcmd:"list",val:{status:1}};
     var initialDataModel = {
+        queryURLParameter:function(url){
+            var obj = {};
+            var reg = /([^?=&]+)=([^?=&]+)/g;
+            url.replace(reg, function () {
+                obj[arguments[1]] = arguments[2];
+            });
+            return obj;
+        },
         addZero: function (val) {
             return val < 10 ? "0" + val : val;
         },
@@ -236,8 +243,11 @@
     };
     //obj.page=1;
     //obj.pagesize=8;
+    var url = window.location.href;
+    var userid =initialDataModel.queryURLParameter(url)["userid"]||0;
+    var ck=initialDataModel.queryURLParameter(url)["val"]||"";
+    var obj = {cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
     initialDataModel.init();
-
 
     $('.bg').bind('click',function(){
         $('.race-fiter-list li').removeClass('selected').siblings().removeClass('change');
