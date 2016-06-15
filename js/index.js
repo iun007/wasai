@@ -244,8 +244,8 @@
     //obj.page=1;
     //obj.pagesize=8;
     var url = window.location.href;
-    var userid =initialDataModel.queryURLParameter(url)["userid"]||0;
-    var ck=initialDataModel.queryURLParameter(url)["val"]||"";
+    var userid =initialDataModel.queryURLParameter(url)["userid"];
+    var ck=initialDataModel.queryURLParameter(url)["val"];
     var obj = {cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
     initialDataModel.init();
 
