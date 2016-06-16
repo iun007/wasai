@@ -312,9 +312,9 @@
                     return typeof Time == 'string' ? month + '\u6708' + day + '\u65e5\u5468'+_this.week(week): year + '-' + _this.addZero(month) + '-' + _this.addZero(day);
                 },
                 //给出对应赛事状态汉子说明
-                raceCondition:function(){
+                raceCondition:function(status){
                     var statuStr;
-                    switch (summar.status) {
+                    switch (status) {
                         case "0":
                             statuStr="\u672a\u542f\u52a8";
                             break;
@@ -347,7 +347,7 @@
                              '<div class="race-detail-header">' +
                                 '<div class="race-detail-title">' +
                                     '<h2>'+summar[name]+'</h2>' +
-                                    '<button class="btn btn-join">'+BindingData.raceCondition()+'</button>' +
+                                    '<button class="btn btn-join">'+BindingData.raceCondition(summar.status)+'</button>' +
                                     '<div class="race-detail-ps">' +
                                         '<span class="race-datetime"><i class="ws-ico ico-time"></i>' + BindingData.showTime(new Date(summar[start_time]*1000)) + '</span>' +
                                         '<span class="race-location"><i class="ws-ico ico-location"></i>'+summar.place+'</span>' +
