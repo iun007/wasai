@@ -74,15 +74,14 @@
         },
         repeatedMethod: function () {
             var _this = this;
-            console.log(obj);
             $.ajax({
                 url: $urlHost[1],
                 type: 'post',
                 dataType: 'json',
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
-                    console.log(data);
-                    alert('我就呵呵了');
+                    //console.log(data);
+                    //alert('我就呵呵了');
                     if(data.err==1998){
                            window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return
@@ -176,8 +175,8 @@
 
                     //var IndexData=Index_data[i].race_time.replace(/-/g,'/');
                     //此处删去详解下个页面的图片id
-                    DataList += '<li  data-id="'+Index_data[i].ID+'">' +
-                        '<a>' +
+                    DataList += '<li>' +
+                        '<a href="../detail.html?ID="'+Index_data[i].ID+'">' +
                         '<div class="race-idx-img">' +
                             //此处去掉了img链接的图片，数据里还没有
                         '<img src="' + Index_data[i].image + '" alt="" width="100%">' +
@@ -188,19 +187,19 @@
                         '<h2>' + Index_data[i].name + '</h2>' +
                         '<div class="race-idx-ps">' +
                         '<span class="race-idx-date">' +
-                        '<i class="ws-ico ico-time2"></i>' + Index_data[i].start_time + '</span>' +
+                        '<i class="ws-ico ico-time2"></i>' + _this.showTime(new Date(Index_data[i].start_time*1000)) + '</span>' +
                         '<span class="race-idx-location">' +
                         '<span class="ws-ico ico-location2">' +
                         '</span>' + Index_data[i].place+ '</span>'+str;
                 }
                 $('.race-section ul').append(DataList);
                 //obj.page++;
-                //没给id添加表示暂时无用
+
                 //$('.race-section ul li').bind('click',function(){
                 //    var id=$(this).attr('data-id');
                 //    window.location.href='http:\/\/www.shouzi.ren\/index.php?g=Race&m=RaceData&a=detail&id='+id;
                 //});
-                _this.windowScroll();
+                //_this.windowScroll();
 
             }else{
                 $('.loading').hide();
@@ -249,9 +248,14 @@
     var url = window.location.href;
     var userid =initialDataModel.queryURLParameter(url)["userid"];
     var ck=initialDataModel.queryURLParameter(url)["val"];
+    if(userid||ck){
+        localStorage.setItem("user_name",userid);
+        localStorage.setItem("ck",ck);
+
+    }
     var obj = {cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
-    console.log(obj);
-    alert('呵呵哒');
+    //console.log(obj);
+    //alert('呵呵哒');
     initialDataModel.init();
 
     $('.bg').bind('click',function(){
