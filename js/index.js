@@ -176,7 +176,7 @@
                     //var IndexData=Index_data[i].race_time.replace(/-/g,'/');
                     //此处删去详解下个页面的图片id
                     DataList += '<li>' +
-                        '<a href="../detail.html?ID="'+Index_data[i].ID+'">' +
+                        '<a href="detail.html?ID="'+Index_data[i].ID+'">' +
                         '<div class="race-idx-img">' +
                             //此处去掉了img链接的图片，数据里还没有
                         '<img src="' + Index_data[i].image + '" alt="" width="100%">' +
