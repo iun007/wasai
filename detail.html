@@ -347,9 +347,9 @@
                              '<div class="race-detail-header">' +
                                 '<div class="race-detail-title">' +
                                     '<h2>'+summar[name]+'</h2>' +
-                                    '<button class="btn btn-join">'+_this.raceCondition()+'</button>' +
+                                    '<button class="btn btn-join">'+BindingData.raceCondition()+'</button>' +
                                     '<div class="race-detail-ps">' +
-                                        '<span class="race-datetime"><i class="ws-ico ico-time"></i>' + _this.showTime(new Date(summar[start_time]*1000)) + '</span>' +
+                                        '<span class="race-datetime"><i class="ws-ico ico-time"></i>' + BindingData.showTime(new Date(summar[start_time]*1000)) + '</span>' +
                                         '<span class="race-location"><i class="ws-ico ico-location"></i>'+summar.place+'</span>' +
                                     '</div>' +
                                 '</div>' +
@@ -414,6 +414,7 @@
             Send(Url, detail, BindingData.projectPrice);
 
 //热门评论
+
 //            $.ajax({
 //                url: Url,
 //                type: 'post',
