@@ -58,7 +58,6 @@
             var week = time.getDay();
             //var aryStr = '日一二三四五六';
             return typeof Time == 'string' ? month + '\u6708' + day + '\u65e5\u5468'+_this.week(week): year + '-' + _this.addZero(month) + '-' + _this.addZero(day);
-
         },
         windowScroll:function(){
             var _this=this;
@@ -248,14 +247,17 @@
     var url = window.location.href;
     var userid =initialDataModel.queryURLParameter(url)["userid"];
     var ck=initialDataModel.queryURLParameter(url)["val"];
-    if(userid||ck){
-        localStorage.setItem("user_name",userid);
-        localStorage.setItem("ck",ck);
-        var obj = {cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
+    if(localStorage.getItem("user_name")&&localStorage.getItem("ck")){
+        var obj = {cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:localStorage.getItem("ck"),val:{status:1}};
     }else{
-        obj={cmd:"mrace",subcmd:"list",userid:"",ck:"",val:{status:1}}
+        if(userid&&ck){
+            obj={cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
+            localStorage.setItem("user_name",userid);
+            localStorage.setItem("ck",ck);
+        }else{
+            obj={cmd:"mrace",subcmd:"list",userid:"",ck:"",val:{status:1}};
+        }
     }
-
     console.log(obj);
 
     initialDataModel.init();

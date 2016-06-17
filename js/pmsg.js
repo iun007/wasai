@@ -38,10 +38,12 @@ var Send = function(serveradd, msg, cb){
             // input:str;
             console.log(data);
 	      console.log("success");
+            if(cb==undefined)return;
 	      cb(0, data);
         },
         error:function(data){
 	      console.log("error" + obj2str(data));
+            if(cb==undefined)return;
 	      cb(1, null);
         }
     })

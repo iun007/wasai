@@ -134,7 +134,7 @@
             background: dodgerblue;
         }
 
-        .hostList div, .List div {
+        .hostList div, .List .TheLayerHost {
             padding: 12px 0 12px 50px;
             font-size: 10px;
             display: flex;
@@ -239,6 +239,15 @@
             width: 15px;
             background-position: 0 -28px;
         }
+        .littleicon{
+            display: inline-block;
+            float: right;
+            padding-right:10px ;
+            width: 15px;
+            height:15px;
+            background-color:lightblue;
+            border-radius: 50% 50%;
+        }
 
         hr {
             margin-top: 10px;
@@ -284,6 +293,9 @@
     <script type="text/javascript">
         $(function () {
             var BindingData = {
+                addZero: function (val) {
+                    return val < 10 ? "0" + val : val;
+                },
                 //解析本页面的url字符画串
                 queryURLParameter: function (url) {
                     var obj = {};
@@ -311,7 +323,7 @@
                     //var aryStr = '日一二三四五六';
                     return typeof Time == 'string' ? month + '\u6708' + day + '\u65e5\u5468'+_this.week(week): year + '-' + _this.addZero(month) + '-' + _this.addZero(day);
                 },
-                //给出对应赛事状态汉子说明
+                //给出对应赛事状态汉字说明
                 raceCondition:function(status){
                     var statuStr;
                     switch (status) {
@@ -346,16 +358,16 @@
                              '<div class="race-mask"><img src="'+summar["image"]+'" alt=""/></div>' +
                              '<div class="race-detail-header">' +
                                 '<div class="race-detail-title">' +
-                                    '<h2>'+summar[name]+'</h2>' +
+                                    '<h2>'+summar.name+'</h2>' +
                                     '<button class="btn btn-join">'+BindingData.raceCondition(summar.status)+'</button>' +
                                     '<div class="race-detail-ps">' +
-                                        '<span class="race-datetime"><i class="ws-ico ico-time"></i>' + BindingData.showTime(new Date(summar[start_time]*1000)) + '</span>' +
+                                        '<span class="race-datetime"><i class="ws-ico ico-time"></i>' + BindingData.showTime(new Date(Number(summar.start_time)*1000)) + '</span>' +
                                         '<span class="race-location"><i class="ws-ico ico-location"></i>'+summar.place+'</span>' +
                                     '</div>' +
                                 '</div>' +
                              '</div>' +
                              '</div><div class="forColor"></div>' +
-                             '<main><article class="recommendation"><h2>参赛推荐:</h2><div class="icon"></div><p>'+summar[reason]+'</p></article><article class="race-article"><h2 class="atc-title">报名组别</h2><ul class="atc-group">';
+                             '<main><article class="recommendation"><h2>参赛推荐:</h2><div class="icon"></div><p>'+summar.reason+'</p></article><article class="race-article"><h2 class="atc-title">报名组别</h2><ul class="atc-group">';
 
                     for (var i = 0; i < signUpData.length; i++) {
                         str += '<li class="flex">' +
@@ -365,10 +377,50 @@
                                 '</li>';
                     }
                     str+='</ul><h2 class="atc-title">赛事简介</h2>' +
-                            '<div>'+summar[introduce]+'</div>' +
+                            '<div>'+summar.introduce+'</div>' +
                             '<div class="onekey-box"><button class="btn btn-onekey">一键报名</button></div>' +
                             '</article></main>';
                     $('.initialization').append(str)
+
+                },
+                commentOn:function(num,data){
+                    var _this=this;
+                    if (num == 1&&data.err != 0) {
+                        return
+                    }
+                    var str = '';
+                    var List = data.val.list;
+                    for (var i = 0; i < List.length; i++) {
+                        str += '<li>' +
+                                '<div data-render="'+List[i]+'">' +
+                                '<span class="portrait"></span>' +
+                                '<div class="TheLayerHost">' +
+                                '<span class="name">' + List[i].nickname + '</span>' +
+                                '<span class="time">' + List[i].create_time + '</span>' +
+                                '<span class="vote">' + List[i].like_sum + '<i class="pm-icon2 pm-icon2-2"></i></span>' +
+                                '</div>' +
+                                '<p class="mainComment">' + List[i].comment + '</p>' +
+                                '</div>' +
+                                '<div><p>我是二级，我对上一级进行评论</p></div>' +
+                                '</li>'
+                    }
+                    $('.List').append(str);
+                    $('.mainComment').click(function(){
+                        $(this).after("<div><input type='text' placeholder='回复层主'><span class='littleicon'></span></div>");
+                        $('.littleicon').click(function(){
+                            console.log($(this).prev());
+                            if($(this).prev().val()!==""){
+                                console.log($(this).parent().parent().attr('data-render').ID);
+                                var add=new pmsg("mraceComment", "add",localStorage.getItem("user_name"),localStorage.getItem("ck"),{race_id:matchID,comment: $(this).prev().val(),pid:$(this).parent().parent().attr('data-render').ID});
+                                $(this).next().remove();
+                                $(this).after("<div><p>我是最新的二级，我也对上一级评论</p></div>>");
+                                Send(Url,add)
+
+                            }
+
+                        })
+
+                    })
 
                 }
 
@@ -388,32 +440,21 @@
             //第一次加载页面时候
             var Url = "http://138.128.203.57/wasai/api.php";
             var detail = new pmsg("mrace", "detail", localStorage.getItem("user_name"), localStorage.getItem("ck"), {ID: matchID});
-            var hotLIst = new pmsg("mraceComment", "hotList", localStorage.getItem("user_name"), localStorage.getItem("ck"), {race_id: 1});
-            var list = new pmsg("mraceComment", "list", localStorage.getItem("user_name"), localStorage.getItem("ck"), {race_id: 1});
-
-//            var data=[{cmd:"mrace",subcmd:"detail",userid:undefined,ck:undefined,val:{ID:1}},{cmd:"mraceComment",subcmd:"hotList",userid:undefined,ck:undefined,val:{race_id:1}},{cmd:"mraceComment",subcmd:"list",userid:undefined,ck:undefined,val:{race_id:1}}];
-
+            var hotLIst = new pmsg("mraceComment", "hotList", localStorage.getItem("user_name"), localStorage.getItem("ck"), {race_id: matchID});
+            var list = new pmsg("mraceComment", "list", localStorage.getItem("user_name"), localStorage.getItem("ck"), {race_id: matchID});
 
             $('.lasticon').click(function () {
                 var $input = $('.footer input')[0].value;
-                var add = new pmsg("mraceComment", "add", localStorage.getItem("user_name"), localStorage.getItem("ck"),{race_id: 1,comment: $input});
-                console.log(add);
+                var add=new pmsg("mraceComment", "add",localStorage.getItem("user_name"), localStorage.getItem("ck"),{race_id:matchID,comment: $input});
                 if ($input != "") {
-                    $.ajax({
-                        url: Url,
-                        type: 'post',
-                        dataType: 'json',
-                        data: {"input": JSON.stringify(add)},
-                        success: function (data) {
-                            console.log(data)
-                        }
-                    })
+                  Send(Url,add)
                 }
             });
 //赛事费用动态添加
             Send(Url, detail, BindingData.projectPrice);
 
 //热门评论
+            Send(Url,list,BindingData.commentOn);
 
 //            $.ajax({
 //                url: Url,
