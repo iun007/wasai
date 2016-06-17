@@ -381,6 +381,9 @@
                             '<div class="onekey-box"><button class="btn btn-onekey">一键报名</button></div>' +
                             '</article></main>';
                     $('.initialization').append(str)
+                    $('.btn-onekey').click(function(){
+                        window.location.href = "form.html";
+                    });
 
                 },
                 commentOn:function(num,data){
@@ -413,7 +416,7 @@
                                 console.log($(this).parent().parent().attr('data-render').ID);
                                 var add=new pmsg("mraceComment", "add",localStorage.getItem("user_name"),localStorage.getItem("ck"),{race_id:matchID,comment: $(this).prev().val(),pid:$(this).parent().parent().attr('data-render').ID});
                                 $(this).next().remove();
-                                $(this).after("<div><p>我是最新的二级，我也对上一级评论</p></div>>");
+                                $(this).after("<div><p>"+$(this).prev().val()+"</p></div>");
                                 Send(Url,add)
 
                             }
@@ -453,8 +456,9 @@
 //赛事费用动态添加
             Send(Url, detail, BindingData.projectPrice);
 
-//热门评论
+//全部评论
             Send(Url,list,BindingData.commentOn);
+//热门评论
 
 //            $.ajax({
 //                url: Url,
@@ -485,37 +489,6 @@
 //                    console.log(e)
 //                }
 //            });
-//全部评论
-//            $.ajax({
-//                url: Url,
-//                type: 'post',
-//                dataType: 'json',
-//                data: {"input": JSON.stringify(data[2])},
-//                success: function (data) {
-//                    if (data.err != 0) {
-//                        return
-//                    }
-//                    var str = '';
-//                    var List = data.val.list;
-//                    for (var i = 0; i < List.length; i++) {
-//                        str += '<li>' +
-//                                '<span class="portrait"></span>' +
-//                                '<div>' +
-//                                '<span class="name">' + List[i].nickname + '</span>' +
-//                                '<span class="time">' + List[i].create_time + '</span>' +
-//                                '<span class="vote">' + List[i].like_sum + '<i class="pm-icon2 pm-icon2-2"></i></span>' +
-//                                '</div>' +
-//                                '<p>' + List[i].comment + '</p>' +
-//                                '<div><p>我是二级，我对上一级进行评论</p><div><p>我是三级我对二级评论</p></div></div>' +
-//                                '</li>'
-//                    }
-//                    $('.List').append(str)
-//                },
-//                error: function (e) {
-//                    console.log(e)
-//                }
-//
-//            })
 
         })
 

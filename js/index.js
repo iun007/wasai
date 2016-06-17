@@ -80,7 +80,7 @@
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
                     console.log(data);
-                    //alert('我就呵呵了');
+                    alert('我就呵呵了');
                     if(data.err==1998){
                            window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return
@@ -248,7 +248,13 @@
     var userid =initialDataModel.queryURLParameter(url)["userid"];
     var ck=initialDataModel.queryURLParameter(url)["val"];
     if(localStorage.getItem("user_name")&&localStorage.getItem("ck")){
-        var obj = {cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:localStorage.getItem("ck"),val:{status:1}};
+        if(ck!=localStorage.getItem("ck")){
+            var obj={cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:ck,val:{status:1}};
+            console.log(obj);
+            alert(obj);
+            localStorage.setItem("ck",ck);
+        }
+         obj = {cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:localStorage.getItem("ck"),val:{status:1}};
     }else{
         if(userid&&ck){
             obj={cmd:"mrace",subcmd:"list",userid:userid,ck:ck,val:{status:1}};
