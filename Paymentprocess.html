@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>支付费用</title>
+    <link rel="stylesheet" href="css/weui.min.css"/>
+    <style>
+        body{
+            background: #EFEFF4;
+        }
+        .weui_cells{
+            font-size: 14px;
+        }
+        .weui_cells_form{
+            background: inherit;
+        }
+        .bd {
+            padding: 20px 15px;
+        }
+        .weui_cells_radio .weui_check:checked + .weui_icon_checked:before {
+            display: block;
+            content: '\EA07';
+            color: red;
+            background: lightpink;
+            border-radius:50% 50% ;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cells_title">台北渣打公益马拉松参赛费用</div>
+        <div class="weui_cells">
+            <div class="weui_cell">
+                42公里全马报名费用
+                <div class="weui_cell_bd weui_cell_primary" style="text-align: right;color:#FF3402"><p>x1</p></div>
+                <div class="weui_cell_primary" style="text-align: right;color: #FF3402;"><p>¥45</p></div>
+            </div>
+        </div>
+        <div class="weui_cells_title">支付方式</div>
+        <div class="weui_cells weui_cells_radio">
+            <label class="weui_cell weui_check_label" for="x11">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>微信支付</p>
+                </div>
+                <div class="weui_cell_ft">
+                    <input type="radio" class="weui_check" name="radio1" id="x11">
+                    <span class="weui_icon_checked"></span>
+                </div>
+            </label>
+            <label class="weui_cell weui_check_label" for="x12">
+
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>支付宝</p>
+                </div>
+                <div class="weui_cell_ft">
+                    <input type="radio" name="radio1" class="weui_check" id="x12" checked="checked">
+                    <span class="weui_icon_checked"></span>
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="bd spacing"><a href="javascript:;" class="weui_btn weui_btn_primary">45元 确认支付</a></div>
+</div>
+
+</body>
+</html>

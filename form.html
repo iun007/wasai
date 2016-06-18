@@ -313,23 +313,6 @@
             <div class="weui_cells_title">填写个人信息</div>
             <div class="weui_cells weui_cells_form">
                 <div class="weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <div class="weui_uploader">
-                            <div class="weui_uploader_hd weui_cell">
-                                <div class="weui_cell_bd weui_cell_primary">请上传半年内全马完赛证明</div>
-                                <div class="weui_cell_ft">0/0</div>
-                            </div>
-                            <div class="weui_uploader_bd">
-                                <ul class="weui_uploader_files">
-                                </ul>
-                                <div class="weui_uploader_input_wrp">
-                                    <input type="file" class="weui_uploader_input" onchange="processFiles.call(this,this.files)" accept="image/jpg,image/ipeg,image/png,image/gif" multiple="" name="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="weui_cell">
                     <div class="weui_cell_hd">
                         <label class="weui_label">姓名</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
@@ -469,7 +452,7 @@
                                 <ul class="weui_uploader_files">
                                 </ul>
                                 <div class="weui_uploader_input_wrp">
-                                    <input type="file" onchange="processFiles.call(this,this.files)" class="weui_uploader_input" accept="image/jpg,image/ipeg,image/png,image/gif" multiple name="1"/>
+                                    <input type="file" onchange="processFiles.call(this,this.files)" class="weui_uploader_input" accept="image/jpg,image/ipeg,image/png,image/gif" multiple name="marathon_prove"/>
                                 </div>
                             </div>
                         </div>
@@ -533,15 +516,16 @@
     <script src="js/jquery.min.js"></script>
     <script>
         function processFiles(files) {
-            var upLoad = document.getElementsByClassName('weui_uploader_files')[this.name];
+            var upLoad = document.getElementsByClassName('weui_uploader_files')[0];
+            window.ary=[];
             var file = files[0];
             var reader = new FileReader();
             reader.onload = function (e) {
                 var Li = document.createElement('li');
                 Li.className = 'weui_uploader_file';
                 Li.style.backgroundImage = 'url("' +  e.target.result + '")';
-                upLoad.appendChild(Li)
-
+                upLoad.appendChild(Li);
+                ary.push(e.target.result)
             };
             reader.readAsDataURL(file)
         }
@@ -599,6 +583,10 @@
                 if(!$('#s11')[0].checked){
                     alert("请详细阅读哇塞报名细则");
                     return
+                }
+                if(val.marathon_prove){
+                    val.marathon_prove=ary;
+
                 }
                 //表单提交ajax发起处
                 $.ajax({
