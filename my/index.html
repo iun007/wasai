@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>我的+</title>
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <style>
+        html {
+            background-color: rgba(241, 245, 248, 1);
+        }
+
+        body {
+            font-family:  "PingFang SC Light","Heiti SC","San Francisco","Helvetica";
+            color: #333;
+            overflow-x: hidden;
+            min-width: 320px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        hr{
+            border-top:1px solid #d9d9d9;
+            border-left: 0;
+            border-bottom: 0;
+            border-right: 0;
+        }
+        .oneself {
+            margin-top: 15px;
+            background-color: white;
+        }
+
+        .oneself:before,.MyRelated:before,.adviceAndHelp:before {
+            content: "";
+            display: block;
+            /*margin-left: -5%;*/
+            height: 1px;
+            top: 0;
+            background: #d9d9d9;
+        }
+
+        .oneself:after,.MyRelated:after,.adviceAndHelp:after {
+            content: "";
+            display: block;
+            height: 1px;
+            bottom: 0;
+            background: #d9d9d9;
+        }
+
+        .someone {
+            position: relative;
+            height: 40px;
+            padding: 10px 15px;
+        }
+
+        .portrait {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            border: 1px solid dodgerblue;
+            border-radius: 10% 10%;
+            background: dodgerblue;
+        }
+
+        .detail {
+            margin-left: 50px;
+            height: 40px;
+            font-size: 15px;
+
+        }
+        .name{
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .autograph{
+            font-size: 12px;
+        }
+
+        .someone:after,.AdditionalInfo:after {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            margin-top: -4px;
+            content: "";
+            transform: rotate(45deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+        }
+
+        .MyRelated,.adviceAndHelp {
+            position: relative;
+            font-size: 15px;
+            margin: 15px 0;
+            background-color: white;
+        }
+
+        .MyRelated > div,.adviceAndHelp>div {
+            padding-left: 15px
+        }
+
+        .my-portrait {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: dodgerblue;
+        }
+
+        .headerInfo {
+            display: inline-block;
+            margin-left: 10px;
+            height: 20px;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        .AdditionalInfo{
+            position: relative;
+            position: relative;
+            float: right;
+            padding-right: 23px;
+        }
+        .drop_down{
+            display: inline-block;
+            float: right;
+            margin-top: 6px;
+            margin-right: 10px;
+            content: "";
+            transform: rotate(45deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+        }
+        .baoming{
+            line-height: 40px;
+        }
+        .topBar{
+            padding: 10px 0;
+            line-height: 20px;
+            font-size: 14px;
+
+        }
+        .top_box h2{
+            display: inline;
+            line-height: 40px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .top_box span{
+            margin-top: 10px;
+            margin-right: 10px;
+            float: right;
+            height: 15px;
+            padding:0 5px;
+            line-height: 15px;
+            border: 1px solid gray;
+            border-radius: 5px;
+
+        }
+        .bottom_box{
+            height: 14px;
+            line-height: 14px;
+            font-size: 12px;
+            padding-bottom:10px ;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+        .bottom_box li span{
+            position: relative;
+            display: inline-block;
+            line-height: 14px;
+        }
+        .my-icons{
+            position: relative;
+            top: 3px;
+            width: 15px;
+            height: 14px;
+            background: url('img/my-icon.png') no-repeat;
+            background-size: 12px 45px;
+            display: inline-block;
+
+        }
+        .icon2{
+            background-position: 0 -14px;
+        }
+        .icon3{
+            background-position: 0 -29px;
+        }
+
+        .searchMore{
+            line-height: 30px;
+            font-size: 10px;
+        }
+        .location{
+            margin-right:10px ;
+        }
+
+        nav {
+            width: 100%;
+            max-width: 640px;
+            border-top: 1px solid #DEDEDE;
+            border-bottom: 1px solid #F8F8F8;
+            position: absolute;
+            bottom: 0;
+            z-index: 999;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            justify-content: space-between;
+            align-content: center;
+            background-color: #FFF;
+        }
+        nav a {
+            margin: 4px 0;
+            font-size: 20px;
+            color: #999;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+        }
+        nav span {
+            font-size: 30px;
+            background-color: #FFF;
+            display: block;
+            margin-bottom: 2px;
+        }
+        nav p {
+            font-size: 14px;
+            line-height: 1;
+            padding-top: 3px;
+            color: #333;
+            margin: -3px 0 5px;
+        }
+        @media screen and (max-width: 640px){
+            nav span {
+                font-size: 22px;
+                height: 22px;
+                background-color: #FFF;
+                margin-bottom: 4px;
+            }
+            nav p {
+                display: block;
+                font-size: 10px;
+                color: #666;
+                line-height: 0.7;
+            }
+        }
+
+        .headerInfo{
+            margin-left: 10px;
+        }
+
+        .icon-bottom i{
+            width: 22px;
+            height: 22px;
+            background: url('img/tubiao2.png') no-repeat;
+            background-size: 50px 96.5px;
+            display: inline-block;
+        }
+        .icon-bottom .icon-race{
+            background-position: -29px 0;
+
+        }
+        .icon-bottom .icon-rent{
+            background-position: -28px -27px;
+        }
+        .icon-bottom .icon-news{
+            background-position: -29px -53px;
+        }
+        .icon-bottom .icon-me{
+            background-position: 3px -78px;
+        }
+        nav .runnerPage p {
+            color: #1875d4;
+        }
+
+    </style>
+</head>
+<body>
+<main>
+    <div class="oneself">
+        <div class="someone">
+            <div class="portrait"></div>
+            <div class="detail">
+                <h2 class="name">少林熊猫</h2>
+                <div class=" autograph">签名档未填写</div>
+            </div>
+        </div>
+    </div>
+    <div class="MyRelated">
+        <div class="Flatshare_box">
+            <div class="topBar">
+                <div class="my-portrait"></div>
+                <span class="headerInfo">我的拼马</span><span class="drop_down"></span>
+            </div>
+            <div></div>
+        </div>
+        <hr>
+        <div class="signUp_box">
+            <div class="topBar">
+                <div class="my-portrait"></div>
+                <span class="headerInfo">我的报名</span><span class="drop_down"></span>
+            </div>
+            <hr/>
+            <div class="MysignUp">
+                <div class="baoming">
+                    <div class="top_box"><h2>2016台北渣打公益马拉松</h2><span>待付款</span></div>
+                    <ul class="bottom_box"><li><i class="my-icons icon1"></i><span>2月14日 五</span></li><li><i class="my-icons icon2"></i><span>李长胜</span></li><li class="location"><i class="my-icons icon3"></i><span>42公里全马</span></li></ul>
+                </div>
+                <hr/>
+                <div class="baoming">
+                    <div class="top_box"><h2>2016台北渣打公益马拉松</h2><span>已报名</span></div>
+                    <ul class="bottom_box"><li><i class="my-icons icon1"></i><span>2月14日 五</span></li><li><i class="my-icons icon2"></i><span>李长胜</span></li><li class="location"><i class="my-icons icon3"></i><span>42公里全马</span></li></ul>
+                </div>
+            </div>
+            <hr/>
+            <div class="searchMore">查看更多>></div>
+        </div>
+    </div>
+    <div class="adviceAndHelp">
+        <div class="Flatshare_box">
+            <div class="topBar">
+                <div class="my-portrait"></div>
+                <span class="headerInfo">吐槽与建议</span><span class="AdditionalInfo">直言无惧友谊船</span></span>
+            </div>
+            <div></div>
+        </div>
+        <hr>
+        <div class="signUp_box">
+            <div class="topBar">
+                <div class="my-portrait icon2"></div>
+                <span class="headerInfo">挖赛小秘书</span><span class="AdditionalInfo">寻求帮助勿调戏</span></span>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+    <nav>
+        <a class="racePage" href="../index.html">
+            <span class="icon-bottom"><i class="icon-race"></i></span>
+            <p>赛事</p>
+        </a>
+        <a class="rentPage" href="../Flatshare">
+            <span class="icon-bottom"><i class="icon-rent"></i></span>
+            <p>拼马</p>
+        </a>
+        <a class="newsPage" href="../news">
+            <span class="icon-bottom"><i class="icon-news"></i></span>
+            <p>消息</p>
+        </a>
+        <a class="runnerPage" href="">
+            <span class="icon-bottom"><i class="icon-me"></i></span>
+            <p>我的</p>
+        </a>
+    </nav>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/pmsg.js"></script>
+<script>
+    $(function(){
+        var BindData={
+            GenerateUserInfo:function(num,data){
+                var _this=this;
+                if (num == 1) return;
+                var str="";
+                str+='<div class="someone">' +
+                        '<div class="portrait"></div>' +
+                        '<div class="detail">' +
+                        '<h2 class="name">'+data.val.nickname+'</h2>' +
+                        '<div class=" autograph">'+data.val.sign+'</div></div></div>';
+
+
+            }
+
+        };
+        var Url = "http://138.128.203.57/wasai/api.php";
+        var userInfo= new pmsg("mhome", "userInfo", localStorage.getItem("user_name"), localStorage.getItem("ck"));
+        //初始化用户信息
+        Send(Url,userInfo)
+
+
+
+    })
+
+</script>
+</html>

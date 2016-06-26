@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>消息</title>
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            background: rgba(241, 245, 248, 1);
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "PingFang SC Light", "Heiti SC", "San Francisco", "Helvetica";
+            color: #333;
+            min-width: 320px;
+            max-width: 640px;
+            overflow-x: hidden;
+            margin: 0 auto;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        header {
+            color: white;
+            padding: 10px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+
+        header a {
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        header a:after {
+            position: absolute;
+            top: 6px;
+            left: 7px;
+            content: "";
+            display: inline-block;
+            transform: rotate(-135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #0263B5;
+            border-style: solid;
+        }
+
+        time {
+            display: block;
+            color: #FFFFFF;
+            font-size: 10px;
+            margin: 15px auto;
+            width: 50%;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border-radius: 3px;
+            background: rgba(153, 153, 153, 1);
+        }
+
+        .talkContent {
+            padding: 0 10px;
+        }
+
+        .portrait {
+            width: 35px;
+            height: 35px;
+            left: 15px;
+            background: dodgerblue;
+        }
+
+        main > div:nth-child(odd) > div .portrait {
+            float: left;
+
+        }
+
+        main > div:nth-child(even) > div .portrait {
+            float: right;
+        }
+
+        .talkContent {
+            overflow: hidden;
+        }
+
+        .talk {
+            position: relative;
+            margin: 0 auto;
+            padding:10px 5px;
+            width: 65%;
+            font-size: 14px;
+            text-align: justify;
+            background: white;
+            border-radius: 5px;
+            z-index:99 ;
+        }
+        main > div:nth-child(odd) > div .talk:before{
+            content: "";
+            display: block;
+            position: absolute;
+            left: -10px;
+            top: 20%;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-right: 10px solid white;
+            border-bottom: 7px solid transparent;
+        }
+        main > div:nth-child(even) > div .talk{
+            background: #0265B2;
+            color: white;
+        }
+        main > div:nth-child(even) > div .talk:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 20%;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-left: 10px solid #0265B2;
+            border-bottom: 7px solid transparent;
+        }
+        .footer {
+            position: fixed;
+            min-width: 320px;
+            max-width: 640px;
+            overflow-x: hidden;
+            margin: 0 auto;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            flex-flow: row nowrap;
+            background-color:rgba(228, 228, 228, 1);
+        }
+        .footer input {
+            margin: auto;
+            height: 30px;
+            margin-left: 3%;
+            width: 77%;
+            border: 1px solid #d9d9d9;
+        }
+        .footer span{
+            float: right;
+            display: inline-block;
+            width: 15%;
+            color: white;
+            margin-right: 3%;
+            margin-top: 10px;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            background-color: rgba(102, 102, 102, 1);
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <a href="index.html"></a>
+
+    <h1 class="header">系统消息</h1>
+</header>
+<main>
+    <div>
+        <time>2016年4月11日 11:26</time>
+        <div class="talkContent">
+            <div class="portrait"></div>
+            <div class="talk">afhaf afkjshf sgoijfa opajp pa afojpao j aoj gapj paj g ojafj paojfajfpajgaf sga</div>
+        </div>
+    </div>
+    <div>
+        <time>2016年4月11日 11:26</time>
+        <div class="talkContent">
+            <div class="portrait"></div>
+            <div class="talk">afhaf afkjshf sgoijfa opajp pa afojpao j aoj gapj paj g ojafj paojfajfpajgaf sga</div>
+        </div>
+    </div>
+</main>
+<div class="footer">
+    <input type="text">
+    <span>发送</span>
+</div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/pmsg.js"></script>
+<script>
+    var BindData={
+        queryURLParameter: function (url) {
+            var obj = {};
+            var reg = /([^?=&]+)=([^?=&]+)/g;
+            url.replace(reg, function () {
+                obj[arguments[1]] = arguments[2];
+            });
+            return obj;
+        }
+    };
+$(function(){
+    var Url = "http://138.128.203.57/wasai/api.php";
+    var togetherMessage=new pmsg("mmessage","togetherMessage",localStorage.getItem("user_name"), localStorage.getItem("ck"),{})
+
+
+
+})
+
+
+</script>
+</html>

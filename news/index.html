@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>消息</title>
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            background: rgba(241, 245, 248, 1);
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "PingFang SC Light", "Heiti SC", "San Francisco", "Helvetica";
+            color: #333;
+            -webkit-user-select: none;
+            user-select: none;
+            margin: 0 auto;
+            min-width: 320px;
+            max-width: 640px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        hr {
+            color: #d9d9d9;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #d9d9d9;;
+            overflow: hidden;
+        }
+
+        header {
+            color: white;
+            padding: 10px 20px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+
+        main {
+            margin-top: 15px;
+        }
+
+        .newsList {
+            padding-left: 15px;
+            position: relative;
+            font-size: 14px;
+            background-color: white;
+
+        }
+
+        .newsList:before {
+            content: "";
+            display: block;
+            margin-left: -5%;
+            height: 1px;
+            top: 0;
+            background: #d9d9d9;
+        }
+
+        .newsList:after {
+            content: "";
+            display: block;
+            margin-left: -5%;
+            height: 1px;
+            bottom: 0;
+            background: #d9d9d9;
+        }
+
+        .newsList div {
+            padding-right: 10px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .newsList div a {
+            display: inline-block;
+            color: inherit;
+            width: 100%;
+        }
+
+        .skip {
+            position: relative;
+            top: 10px;
+            float: right;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+
+        }
+
+        .skip:after {
+            position: absolute;
+            top: 6px;
+            left: 2px;
+            content: "";
+            display: inline-block;
+            transform: rotate(45deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #c8c8cd;
+            border-style: solid;
+        }
+
+        .someone {
+            position: relative;
+            height: 40px;
+            padding: 15px 0;
+        }
+
+        .name {
+            display: inline-block;
+
+        }
+
+        .portrait {
+            float: left;
+            width: 38px;
+            height: 38px;
+            border: 1px solid dodgerblue;
+            border-radius: 50% 50%;
+            background: dodgerblue;
+        }
+
+        .detail {
+            margin-left: 50px;
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .relatedPerson {
+            margin-top: 15px;
+            background-color: white;
+            padding-left: 15px;
+        }
+
+        .relatedPerson:before {
+            content: "";
+            display: block;
+            margin-left: -5%;
+            height: 1px;
+            top: 0;
+            background: #d9d9d9;
+        }
+
+        .relatedPerson:after {
+            content: "";
+            display: block;
+            margin-left: -5%;
+            height: 1px;
+            bottom: 0;
+            background: #d9d9d9;
+        }
+
+        .top {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+
+        .top span {
+            margin-right: 10px;
+        }
+
+        .news-icon {
+            position: relative;
+            top: 2px;
+            width: 15px;
+            height: 15px;
+            background: url('img-news/pingma-icon2.png') no-repeat;
+            background-size: 15px 65px;
+            display: inline-block;
+        }
+
+        .icon1 {
+            background-position: 0 -32px;
+        }
+
+        .icon3 {
+            background-position: 0 -49px;
+        }
+
+        .headerInfo {
+            margin-left: 10px;
+        }
+
+        #nav {
+            width: 100%;
+            max-width: 640px;
+            border-top: 1px solid #DEDEDE;
+            border-bottom: 1px solid #F8F8F8;
+            position: fixed;
+            bottom: 0;
+            z-index: 999;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            justify-content: space-between;
+            align-content: center;
+            background-color: #FFF;
+        }
+
+        #nav a {
+            margin: 4px 0;
+            font-size: 20px;
+            color: #999;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            text-align: center;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        #nav span {
+            font-size: 30px;
+            background-color: #FFF;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        #nav p {
+            font-size: 14px;
+            line-height: 1;
+            padding-top: 3px;
+            color: #333;
+            margin: -3px 0 5px;
+        }
+
+        @media screen and (max-width: 640px) {
+            #nav span {
+                font-size: 22px;
+                height: 22px;
+                background-color: #FFF;
+                margin-bottom: 4px;
+            }
+
+            #nav p {
+                display: block;
+                font-size: 10px;
+                color: #666;
+                line-height: 0.7;
+            }
+        }
+
+        .icon-bottom i {
+            width: 22px;
+            height: 22px;
+            background: url('img-news/tubiao2.png') no-repeat;
+            background-size: 50px 96.5px;
+            display: inline-block;
+        }
+
+        .icon-bottom .icon-race {
+            background-position: -29px 0;
+
+        }
+
+        .icon-bottom .icon-rent {
+            background-position: -28px -27px;
+        }
+
+        .icon-bottom .icon-news {
+            background-position: 4px -53px;
+        }
+
+        .icon-bottom .icon-me {
+            background-position: -28px -78px;
+        }
+
+        #nav .newsPage p {
+            color: #1875d4;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 class="header">消息</h1>
+</header>
+<main>
+    <div class="newsList">
+        <div><a href="comment.html?v=1653"><i class="news-icon icon1"></i><span class="headerInfo">评论</span><span
+                class="skip"></span></a>
+        </div>
+        <hr>
+        <div><a href="approve.html?v=165"><i class="news-icon icon2"></i><span class="headerInfo">赞</span><span
+                class="skip"></span></a></div>
+        <hr>
+        <div><a href="SysMessage.html?v=52"><i class="news-icon icon3"></i><span class="headerInfo">系统消息</span><span class="skip"></span></a></div>
+    </div>
+    <div class="relatedPerson">
+        <div class="someone">
+            <a href="someone.html?v=fgs">
+                <div class="portrait"></div>
+                <div class="detail">
+                    <div class="top"><h2 class="name">骑猫追虎</h2><span>10:23</span></div>
+                    <div class="comment">我怎么知道你竟是这样的人</div>
+                </div>
+            </a>
+        </div>
+        <hr>
+        <div class="someone">
+            <div class="portrait"></div>
+            <div class="detail">
+                <div class="top"><h2 class="name">骑猫追虎</h2><span>10:23</span></div>
+                <div class="comment">求拼房</div>
+            </div>
+        </div>
+    </div>
+</main>
+<div id="nav">
+    <a class="racePage" href="../index.html">
+        <span class="icon-bottom"><i class="icon-race"></i></span>
+
+        <p>赛事</p>
+    </a>
+    <a class="rentPage" href="../Flatshare">
+        <span class="icon-bottom"><i class="icon-rent"></i></span>
+
+        <p>拼马</p>
+    </a>
+    <a class="newsPage" href="">
+        <span class="icon-bottom"><i class="icon-news"></i></span>
+
+        <p>消息</p>
+    </a>
+    <a class="runnerPage" href="../my">
+        <span class="icon-bottom"><i class="icon-me"></i></span>
+
+        <p>我的</p>
+    </a>
+</div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/pmsg.js"></script>
+<script>
+
+
+
+
+</script>
+</html>

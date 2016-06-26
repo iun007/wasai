@@ -242,7 +242,7 @@
         .littleicon{
             display: inline-block;
             float: right;
-            padding-right:10px ;
+            margin-right:10px ;
             width: 15px;
             height:15px;
             background-color:lightblue;
@@ -255,6 +255,9 @@
             border-left: 0;
             border-bottom: 0;
             border-right: 0;
+        }
+        .mainComment{
+            height: 50px;
         }
     </style>
 </head>
@@ -380,7 +383,7 @@
                             '<div>'+summar.introduce+'</div>' +
                             '<div class="onekey-box"><button class="btn btn-onekey">一键报名</button></div>' +
                             '</article></main>';
-                    $('.initialization').append(str)
+                    $('.initialization').append(str);
                     $('.btn-onekey').click(function(){
                         window.location.href = "form.html";
                     });
@@ -393,40 +396,44 @@
                     }
                     var str = '';
                     var List = data.val.list;
+                    var $list=$('.List');
                     for (var i = 0; i < List.length; i++) {
                         str += '<li>' +
-                                '<div data-render="'+List[i]+'">' +
+                                '<div data-render="'+List[i].fields.ID+'">' +
                                 '<span class="portrait"></span>' +
                                 '<div class="TheLayerHost">' +
-                                '<span class="name">' + List[i].nickname + '</span>' +
-                                '<span class="time">' + List[i].create_time + '</span>' +
-                                '<span class="vote">' + List[i].like_sum + '<i class="pm-icon2 pm-icon2-2"></i></span>' +
+                                '<span class="name">' + List[i].fields.nickname + '</span>' +
+                                '<span class="time">' + List[i].fields.create_time + '</span>' +
+                                '<span class="vote">' + List[i].fields.like_sum + '<i class="pm-icon2 pm-icon2-2"></i></span>' +
                                 '</div>' +
-                                '<p class="mainComment">' + List[i].comment + '</p>' +
+                                '<p class="mainComment">' + List[i].fields.comment + '</p>' +
                                 '</div>' +
                                 '<div><p>我是二级，我对上一级进行评论</p></div>' +
                                 '</li>'
                     }
-                    $('.List').append(str);
-                    $('.mainComment').click(function(){
-                        $(this).after("<div><input type='text' placeholder='回复层主'><span class='littleicon'></span></div>");
+                    $list.append(str);
+                    $list.on("click","p",function(e){
+                        var $referto=$("<div><input type='text' class='commOther' placeholder='回复层主' autofocus><span class='littleicon'></span></div>");
+
+                        if($(this).next().has('input').length>0){
+                            $(this).next().remove();
+                            return
+                        }
+                        $(this).after($referto);
+//                       console.log($('.commOther'));
                         $('.littleicon').click(function(){
-                            console.log($(this).prev());
+//                            console.log($(this).prev());
                             if($(this).prev().val()!==""){
-                                console.log($(this).parent().parent().attr('data-render').ID);
-                                var add=new pmsg("mraceComment", "add",localStorage.getItem("user_name"),localStorage.getItem("ck"),{race_id:matchID,comment: $(this).prev().val(),pid:$(this).parent().parent().attr('data-render').ID});
-                                $(this).next().remove();
-                                $(this).after("<div><p>"+$(this).prev().val()+"</p></div>");
+                                console.log($(this).parent().parent().attr('data-render'));
+                                var add=new pmsg("mraceComment", "add",localStorage.getItem("user_name"),localStorage.getItem("ck"),{race_id:matchID,comment: $(this).prev().val(),pid:$(this).prev().parent().attr('data-render')});
+                                $(this).parent().remove() ;
                                 Send(Url,add)
 
                             }
-
-                        })
-
+                        });
                     })
 
                 }
-
             };
             //赛事详情里的细节展开项
             var $deploy = $('.deploy');
@@ -490,8 +497,8 @@
 //                }
 //            });
 
-        })
-
+        });
+//http://www.ituring.com.cn/article/467 事件委托的jquery实现
     </script>
 </div>
 </body>

@@ -80,7 +80,7 @@
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
                     console.log(data);
-                    alert('我就呵呵了');
+                  //  alert('我就呵呵了');
                     if(data.err==1998){
                            window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return

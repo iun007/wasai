@@ -406,7 +406,7 @@
                     <div class="weui_cell_hd">
                         <label class="weui_label">邮编</label></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <input type="number" class="weui_input" pattern="[0-9]" placeholder="请输入邮编号" name="zip_code" required/>
+                        <input type="number" class="weui_input" pattern="[0-9]\\d{6}" placeholder="请输入邮编号" name="zip_code" required/>
                     </div>
                 </div>
                 <div class="weui_cell weui_cell_select weui_select_after">
@@ -595,7 +595,8 @@
                     dataType: 'json',
                     data:{"input":JSON.stringify(data)},
                     success:function(data){
-                        console.log(data)
+                        console.log(data);
+                        window.location.href="Paymentprocess.html?order_id="+data.val.order_id
                     }
                 })
             })

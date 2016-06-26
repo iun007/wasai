@@ -375,48 +375,6 @@
     </div>
 </nav>
 <main class="content">
-    <div class="sect">
-        <ul>
-            <li>招租</li>
-            <li>歙马</li>
-            <li>男</li>
-            <li>凯宾斯基大酒店</li>
-            <li>1000元/天</li>
-        </ul>
-        <p><span>@少林熊猫</span>:我就是过来看看是否有人能帮我分担一下开支，本人熊壮汉睡觉打呼噜平时大烟枪，价格全包</p>
-        <ol>
-            <li><img src="images_pingma/portrait3.png" alt=""/></li>
-            <li><img src="images_pingma/portrait2.png" alt=""/></li>
-            <li><img src="images_pingma/portrait1.png" alt=""/></li>
-        </ol>
-        <div class="footer">
-            <span class="time">7分钟前</span>
-            <span class="num"><img src="images_pingma/talk.png" alt=""/>186</span>
-        </div>
-    </div>
-    <hr/>
-    <div class="sect">
-        <ul>
-            <li>招租</li>
-            <li>歙马</li>
-            <li>男</li>
-            <li>凯宾斯基大酒店</li>
-            <li>1000元/天</li>
-        </ul>
-        <p><span>@少林熊猫</span>:我就是过来看看是否有人能帮我分担一下开支，本人熊壮汉睡觉打呼噜平时大烟枪，价格全包</p>
-        <ol>
-            <li><img src="images_pingma/portrait3.png" alt=""/></li>
-            <li><img src="images_pingma/portrait2.png" alt=""/></li>
-            <li><img src="images_pingma/portrait1.png" alt=""/></li>
-        </ol>
-        <div class="footer">
-            <span class="time">7分钟前</span>
-            <span class="num"><img src="images_pingma/talk.png" alt=""/>186</span>
-        </div>
-    </div>
-    <div class="loadingmore">
-        加载中
-    </div>
 </main>
 <div class="bg"></div>
 <div id="nav">
@@ -439,9 +397,53 @@
     </div>
 </body>
 <script src="../js/jquery.min.js"></script>
+<script src="../js/pmsg.js"></script>
 <script>
+    var BindDate={
+        flatListBind:function(num,data){
+            if (num == 1&&data.err != 0) return;
+                var List=data.val;
+            var str="";
+            var sex;
+            for(var i=0;i<List.length;i++){
+                switch (List[i].tags.sex){
+                    case "0":sex="\u4e0d\u9650";
+                        break;
+                    case "1":sex="\u7537";
+                        break;
+                    case  "2":sex="\u5973";
+                }
+                str+='<div class="sect">' +
+                        '<a href="FlatshareDetail.html?userID='+List[i].user_id+'&name='+List[i].nickname+'&createTime='+List[i].create_time+'">' +
+                        '<ul>' +
+                            '<li>'+List[i].tags.type.name+'</li>' +
+                            '<li>'+List[i].tags.race.name+'</li>' +
+                            '<li>'+sex+'</li>' +
+                            '<li>'+List[i].tags.hotel+'</li>' +
+                            '<li>'+parseInt(List[i].price)+'/天</li>' +
+                        '</ul>' +
+                        '<p><span>'+List[i].nickname+'</span>:'+List[i].remark+'</p>' +
+                        '<ol>' +
+                            '<li><img src="images_pingma/portrait3.png" alt=""/></li>' +
+                            '<li><img src="images_pingma/portrait2.png" alt=""/></li>' +
+                            '<li><img src="images_pingma/portrait1.png" alt=""/></li>' +
+                        '</ol>' +
+                        '<div class="footer">' +
+                            '<span class="time">'+List[i].create_time+'</span>' +
+                            '<span class="num"><img src="images_pingma/talk.png" alt=""/>'+List[i].comment_sum+'</span>' +
+                        '</div></a></div><hr/>';
+            }
+                        str+='<div class="loadingmore">加载中</div>';
+
+            $('.content').append(str);
+
+        }
+
+    };
+
     $(function(){
         var Url="http://138.128.203.57/wasai/api.php";
+        var flatshare=new pmsg("mtogether","list",localStorage.getItem("user_name"), localStorage.getItem("ck"));
         //遮罩层
         $('.bg').bind('click',function(){
             $('.race-fiter-list li').removeClass('selected').siblings().removeClass('change');
@@ -464,17 +466,7 @@
             }
         });
         //第一次加载或刷新页面数据初始化
-        $.ajax({
-            url:Url,
-            type: 'post',
-            dataType: 'json',
-            data:{"input":JSON.stringify(data[0])}
-
-
-
-
-        })
-
+     Send(Url,flatshare,BindDate.flatListBind)
 
     })
 </script>

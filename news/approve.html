@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>消息</title>
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            background:rgba(241, 245, 248, 1);
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "PingFang SC Light", "Heiti SC", "San Francisco", "Helvetica";
+            color: #333;
+            min-width: 320px;
+            max-width: 640px;
+            overflow-x: hidden;
+            margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        header {
+            color: white;
+            padding: 10px;
+            line-height: 23px;
+            font-size: 16px;
+            background: #0263B5;
+            text-align: center;
+        }
+
+        header a {
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        header a:after {
+            position: absolute;
+            top: 6px;
+            left: 7px;
+            content: "";
+            display: inline-block;
+            transform: rotate(-135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: #0263B5;
+            border-style: solid;
+        }
+
+        .head {
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #d7d7d7;
+        }
+
+        .head div {
+            width: 50%;
+            font-weight: bold;
+            text-align: center;
+            /*box-sizing: border-box;*/
+            float: left;
+            font-size: 14px;
+        }
+
+        .content {
+            font-size: 12px;
+            background: white;
+        }
+
+        .content ul li {
+            position: relative;
+            padding: 10px;
+        }
+
+        .content ul li:after {
+            position: absolute;
+            display: block;
+            content: "";
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            background: #d9d9d9;
+        }
+
+        .content ul li:last-child:after {
+            left: 0;
+        }
+
+        .someone {
+            overflow: hidden;
+
+        }
+
+        .someone > div {
+            float: left;
+        }
+
+        .portrait {
+            width: 40px;
+            height: 40px;
+            left: 15px;
+            border-radius: 50% 50%;
+            background: dodgerblue;
+        }
+
+        .detail {
+            padding-left: 5px;
+        }
+
+        .detail div {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .time {
+            color: #a0a0a0;
+        }
+
+        .content ul li p {
+            padding-top: 5px;
+            text-align: justify;
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+
+        .discuss {
+            margin-top:5px ;
+            padding: 5px;
+            background-color: rgba(228, 228, 228, 1);
+            border-radius: 5px;
+        }
+        .loadingMore {
+            position: relative;
+            margin: 30px auto;
+            width: 50%;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #d7d7d7;
+            border-radius: 5px;
+            text-align: center;
+            background: rgba(228, 228, 228, 1);
+        }
+        .loadingMore:after {
+            content: " ";
+            display: inline-block;
+            transform: rotate(135deg);
+            height: 6px;
+            width: 6px;
+            border-width: 2px 2px 0 0;
+            border-color: black;
+            border-style: solid;
+            position: absolute;
+            top: 45%;
+            right: 10px;
+            margin-top: -3px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="index.html"></a>
+    <h1 class="header">赞</h1>
+</header>
+<main>
+    <div class="head">
+        <div class="get">收到的</div>
+        <div class="send">发出的</div>
+    </div>
+    <div class="content">
+        <ul>
+            <li>
+                <div class="someone">
+                    <div class="portrait"></div>
+                    <div class="detail">
+                        <div class="name">骑猫追虎</div>
+                        <div class="time">17个小时之前</div>
+                    </div>
+                </div>
+                <p>ioshdvosdhosivhosihsvhsoivjsvsvgdgfddfffdffffffffffffffffffffffffffffffffffffffffffffsvs</p>
+
+                <div class="discuss">
+                    我:我就试试
+                </div>
+            </li>
+            <li>
+                <div class="someone">
+                    <div class="portrait"></div>
+                    <div class="detail">
+                        <div class="name">骑猫追虎</div>
+                        <div class="time">17个小时之前</div>
+                    </div>
+                </div>
+                <p>sdgsgfdfgdfgdgdgdgdfdgdfgdgdgdfgfgdfgdfgdgfddfffdfffffffffffffffffffffffffffffffffffffffffffff</p>
+
+                <div class="discuss">
+                    我:我就试试
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="loadingMore">查看更多评论</div>
+</main>
+</body>
+</html>

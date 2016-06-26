@@ -441,31 +441,6 @@
     </header>
 <main>
     <div class="details">
-        <div class="RelatedPictures">
-            <ul>
-                <li><img src="images_pingma/portrait1.png" alt=""/></li>
-                <li><img src="images_pingma/portrait2.png" alt=""/></li>
-                <li><img src="images_pingma/portrait3.png" alt=""/></li>
-            </ul>
-            <span class="flatshareStatus">
-                过期
-            </span>
-        </div>
-        <div class="flatshareInfo">
-            <div><i class="pm-icon icon1"></i><span class="headerInfo">黄山歙县山水画廊马拉松</span><span class="skip"></span>
-            </div>
-            <hr/>
-            <div><i class="pm-icon icon2"></i><span class="headerInfo">黄山凯宾斯基大酒店</span><span class="skip"></span></div>
-            <hr/>
-            <div><i class="pm-icon icon3"></i><span class="headerInfo">5月22日-5月25日</span><span
-                    class="lastInfo">共三天</span></div>
-            <hr/>
-            <div><i class="pm-icon icon4"></i><span class="headerInfo">招同屋1人</span><span
-                    class="price middleInfo">175元/人</span><span class="sex lastInfo">限女性</span></div>
-        </div>
-        <div class="button">
-            我要拼!
-        </div>
     </div>
     <div class="RelatedInfo">
         <h2>相关标签</h2>
@@ -549,6 +524,14 @@
 <script src="../js/pmsg.js"></script>
 <script>
     var BindingData={
+        queryURLParameter: function (url) {
+            var obj = {};
+            var reg = /([^?=&]+)=([^?=&]+)/g;
+            url.replace(reg, function () {
+                obj[arguments[1]] = arguments[2];
+            });
+            return obj;
+        },
         showTime: function (Time) {
             var _this = this;
             var time;
@@ -571,12 +554,19 @@
           var _this=this;
           if (num == 1) return;
           var flatData=data.val;
-          var str="";
-               str+='<div class="someone">' +
+          var sex;
+          switch (flatData.sex){
+              case "0":sex="\u4e0d\u9650";
+                  break;
+              case "1":sex="\u9650\u7537\u6027";
+                  break;
+              case  "2":sex="\u9650\u5973\u6027";
+          }
+          var str='<div class="someone">' +
                        '<div class="portrait"></div>' +
                        '<div class="detail">' +
-                        '<div class="name">骑猫追虎</div>' +
-                        '<div class="time">17个小时之前</div>' +
+                        '<div class="name">'+nickname+'</div>' +
+                        '<div class="time">'+createTime+'</div>' +
                        '</div>' +
                        '</div>' +
                        '<p>'+flatData.remark+'</p>' +
@@ -587,21 +577,25 @@
                        '<div class="flatshareInfo">' +
                         '<div><i class="pm-icon icon1"></i><span class="headerInfo">'+flatData.race_name+'</span><span class="skip"></span></div><hr/>' +
                         '<div><i class="pm-icon icon2"></i><span class="headerInfo">'+flatData.hotel_name+'</span><span class="skip"></span></div><hr/>' +
-                        '<div><i class="pm-icon icon3"></i><span class="headerInfo">'+flatData.start_time-flatData.end_time+'</span></div><hr/>' +
+                        '<div><i class="pm-icon icon3"></i><span class="headerInfo">'+flatData.start_time+'-'+flatData.end_time+'</span></div><hr/>' +
                         '<div><i class="pm-icon icon4"></i><span class="headerInfo">招同屋'+flatData.people+'人</span><span class="price middleInfo">'+parseInt(flatData.price)+'元/人</span><span class="sex lastInfo">限女性</span></div></div>' +
-                       '<div class="button">我要拼!</div>';
+                       '<div class="button"><a href="../news/someone.html?togetherId="'+togetherId+'">我要拼!</a></div>';
+
+
+          $('.details').append(str)
       }
     };
 
     $(function(){
         var url = window.location.href;
-        //var matchID = BindingData.queryURLParameter(url)["ID"];这个换掉"together_id"
+        window.togetherId = BindingData.queryURLParameter(url)["userID"];
+        window.nickname=decodeURIComponent(BindingData.queryURLParameter(url)["name"]);
+        window.createTime=BindingData.queryURLParameter(url)["createTime"];
 
         var Url = "http://138.128.203.57/wasai/api.php";
-        var flatDetail=new pmsg("mtogether","detail",localStorage.getItem("user_name"),localStorage.getItem("ck"),{"together_id":1});
+        var flatDetail=new pmsg("mtogether","detail",localStorage.getItem("user_name"),localStorage.getItem("ck"),{"together_id":togetherId});
         //第一次加载
-        Send(Url,flatDetail)
-
+        Send(Url,flatDetail,BindingData.flatDetailData)
     });
 
 
