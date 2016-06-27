@@ -307,7 +307,7 @@
     </div>
     <div class="relatedPerson">
         <div class="someone">
-            <a href="someone.html?v=fgs">
+            <a href="someone.html">
                 <div class="portrait"></div>
                 <div class="detail">
                     <div class="top"><h2 class="name">骑猫追虎</h2><span>10:23</span></div>
@@ -351,9 +351,21 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pmsg.js"></script>
 <script>
+$(function(){
+    var Binadata={
+        callback:function(num,data){
+            var _this=this;
+            if (num == 1&&data.err != 0) {
+                return
+            }
+            
 
+        }
 
-
-
+    };
+    var Url = "http://138.128.203.57/wasai/api.php";
+    var flatDetail=new pmsg("mmessage","list",localStorage.getItem("user_name"),localStorage.getItem("ck"));
+    Send(Url,flatDetail,Binadata.callback)
+})
 </script>
 </html>

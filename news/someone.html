@@ -204,6 +204,8 @@
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pmsg.js"></script>
 <script>
+
+$(function(){
     var BindData={
         queryURLParameter: function (url) {
             var obj = {};
@@ -214,10 +216,18 @@
             return obj;
         }
     };
-$(function(){
     var Url = "http://138.128.203.57/wasai/api.php";
-    var togetherMessage=new pmsg("mmessage","togetherMessage",localStorage.getItem("user_name"), localStorage.getItem("ck"),{})
+    var url=window.location.href;
 
+
+    $('.footer span').click(function(){
+         var $val=$('.footer input').val();
+         var togetherMessage=new pmsg("mmessage","togetherMessage",localStorage.getItem("user_name"), localStorage.getItem("ck"),{receive_user_id:BindData.queryURLParameter(url)["togetherId"],message:$val});
+        if ($input != "") {
+            Send(Url,togetherMessage)
+        }
+
+    })
 
 
 })

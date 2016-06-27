@@ -522,75 +522,76 @@
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/pmsg.js"></script>
+<script src="../js/jquery.timeago.js"></script>
 <script>
-    var BindingData={
-        queryURLParameter: function (url) {
-            var obj = {};
-            var reg = /([^?=&]+)=([^?=&]+)/g;
-            url.replace(reg, function () {
-                obj[arguments[1]] = arguments[2];
-            });
-            return obj;
-        },
-        showTime: function (Time) {
-            var _this = this;
-            var time;
-            switch (typeof Time) {
-                case 'string':
-                    time = new Date(Time);
-                    break;
-                case 'object':
-                    time = Time;
-                    break;
-            }
-            var year = time.getFullYear()||time.getYear();
-            var month = time.getMonth() + 1;
-            var day = time.getDate();
-            var week = time.getDay();
-            //var aryStr = '日一二三四五六';
-            return typeof Time == 'string' ? month + '\u6708' + day + '\u65e5\u5468'+_this.week(week): year + '-' + _this.addZero(month) + '-' + _this.addZero(day);
-        },
-      flatDetailData:function(num,data){
-          var _this=this;
-          if (num == 1) return;
-          var flatData=data.val;
-          var sex;
-          switch (flatData.sex){
-              case "0":sex="\u4e0d\u9650";
-                  break;
-              case "1":sex="\u9650\u7537\u6027";
-                  break;
-              case  "2":sex="\u9650\u5973\u6027";
-          }
-          var str='<div class="someone">' +
-                       '<div class="portrait"></div>' +
-                       '<div class="detail">' +
+
+    $(function(){
+        var BindingData={
+            queryURLParameter: function (url) {
+                var obj = {};
+                var reg = /([^?=&]+)=([^?=&]+)/g;
+                url.replace(reg, function () {
+                    obj[arguments[1]] = arguments[2];
+                });
+                return obj;
+            },
+            showTime: function (Time) {
+                var _this = this;
+                var time;
+                switch (typeof Time) {
+                    case 'string':
+                        time = new Date(Time);
+                        break;
+                    case 'object':
+                        time = Time;
+                        break;
+                }
+                var year = time.getFullYear()||time.getYear();
+                var month = time.getMonth() + 1;
+                var day = time.getDate();
+                var week = time.getDay();
+                //var aryStr = '日一二三四五六';
+                return typeof Time == 'string' ? month + '\u6708' + day + '\u65e5\u5468'+_this.week(week): year + '-' + _this.addZero(month) + '-' + _this.addZero(day);
+            },
+            flatDetailData:function(num,data){
+                var _this=this;
+                if (num == 1) return;
+                var flatData=data.val;
+                var sex;
+                switch (flatData.sex){
+                    case "0":sex="\u4e0d\u9650";
+                        break;
+                    case "1":sex="\u9650\u7537\u6027";
+                        break;
+                    case  "2":sex="\u9650\u5973\u6027";
+                }
+                var str='<div class="someone">' +
+                        '<div class="portrait"></div>' +
+                        '<div class="detail">' +
                         '<div class="name">'+nickname+'</div>' +
-                        '<div class="time">'+createTime+'</div>' +
-                       '</div>' +
-                       '</div>' +
-                       '<p>'+flatData.remark+'</p>' +
-                       '<div class="RelatedPictures">' +
+                        '<time class="timeage" datetime=' + new Date(createTime*1000).toISOString() + '></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<p>'+flatData.remark+'</p>' +
+                        '<div class="RelatedPictures">' +
                         '<ul><li><img src="images_pingma/portrait1.png" alt=""/></li><li><img src="images_pingma/portrait2.png" alt=""/></li><li><img src="images_pingma/portrait3.png" alt=""/></li></ul>' +
                         '<span class="flatshareStatus">过期</span>' +
-                       '</div>' +
-                       '<div class="flatshareInfo">' +
+                        '</div>' +
+                        '<div class="flatshareInfo">' +
                         '<div><i class="pm-icon icon1"></i><span class="headerInfo">'+flatData.race_name+'</span><span class="skip"></span></div><hr/>' +
                         '<div><i class="pm-icon icon2"></i><span class="headerInfo">'+flatData.hotel_name+'</span><span class="skip"></span></div><hr/>' +
                         '<div><i class="pm-icon icon3"></i><span class="headerInfo">'+flatData.start_time+'-'+flatData.end_time+'</span></div><hr/>' +
                         '<div><i class="pm-icon icon4"></i><span class="headerInfo">招同屋'+flatData.people+'人</span><span class="price middleInfo">'+parseInt(flatData.price)+'元/人</span><span class="sex lastInfo">限女性</span></div></div>' +
-                       '<div class="button"><a href="../news/someone.html?togetherId="'+togetherId+'">我要拼!</a></div>';
+                        '<div class="button"><a href="../news/someone.html?togetherId='+togetherId+'">我要拼!</a></div>';
 
-
-          $('.details').append(str)
-      }
-    };
-
-    $(function(){
+                $('.details').append(str);
+                $('.timeago').timeago()
+            }
+        };
         var url = window.location.href;
-        window.togetherId = BindingData.queryURLParameter(url)["userID"];
-        window.nickname=decodeURIComponent(BindingData.queryURLParameter(url)["name"]);
-        window.createTime=BindingData.queryURLParameter(url)["createTime"];
+        var togetherId = BindingData.queryURLParameter(url)["userID"];
+        var nickname=decodeURIComponent(BindingData.queryURLParameter(url)["name"]);
+        var createTime=BindingData.queryURLParameter(url)["createTime"];
 
         var Url = "http://138.128.203.57/wasai/api.php";
         var flatDetail=new pmsg("mtogether","detail",localStorage.getItem("user_name"),localStorage.getItem("ck"),{"together_id":togetherId});

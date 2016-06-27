@@ -149,8 +149,9 @@
             line-height: 19px;
         }
 
-        .time {
+        time {
             font-size: 14px;
+            text-align: center;
         }
 
         .pm-icon2 {
@@ -293,6 +294,7 @@
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/pmsg.js"></script>
+    <script src="js/jquery.timeago.js"></script>
     <script type="text/javascript">
         $(function () {
             var BindingData = {
@@ -403,7 +405,7 @@
                                 '<span class="portrait"></span>' +
                                 '<div class="TheLayerHost">' +
                                 '<span class="name">' + List[i].fields.nickname + '</span>' +
-                                '<span class="time">' + List[i].fields.create_time + '</span>' +
+                                '<time class="timeago" datetime=' + new Date(List[i].fields.create_time*1000).toISOString() + '></time>' +
                                 '<span class="vote">' + List[i].fields.like_sum + '<i class="pm-icon2 pm-icon2-2"></i></span>' +
                                 '</div>' +
                                 '<p class="mainComment">' + List[i].fields.comment + '</p>' +
@@ -412,6 +414,7 @@
                                 '</li>'
                     }
                     $list.append(str);
+                    $('.timeago').timeago();
                     $list.on("click","p",function(e){
                         var $referto=$("<div><input type='text' class='commOther' placeholder='回复层主' autofocus><span class='littleicon'></span></div>");
 

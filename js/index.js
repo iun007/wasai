@@ -80,7 +80,6 @@
                 data:{"input":JSON.stringify(obj)},
                 success: function (data) {
                     console.log(data);
-                  //  alert('ฮาพอบวบวมห');
                     if(data.err==1998){
                            window.location.href="http://wasai.wenyuhai.com/wasai/callback.php?cmd=wechat&subcmd=regist&referer="+encodeURIComponent($urlHost[2]);
                         return
@@ -251,7 +250,6 @@
         if(ck!=localStorage.getItem("ck")){
             var obj={cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:ck,val:{status:1}};
             console.log(obj);
-            alert(obj);
             localStorage.setItem("ck",ck);
         }
          obj = {cmd:"mrace",subcmd:"list",userid:localStorage.getItem("user_name"),ck:localStorage.getItem("ck"),val:{status:1}};
